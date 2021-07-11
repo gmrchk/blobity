@@ -1,28 +1,28 @@
-import throttle from 'lodash/throttle';
-import Kinet from 'kinet';
-import {convertColor, isGradient, positive} from "./helpers";
-import Magnetic from "./Magnetic";
+import throttle from 'lodash/throttle'
+import Kinet from 'kinet'
+import { convertColor, isGradient, positive } from './helpers'
+import Magnetic from './Magnetic'
 
 type Options = {
-    license: string | null;
-    color: string | string[];
-    opacity: number;
-    size: number;
-    focusableElements: string;
-    focusableElementsOffsetX: number;
-    focusableElementsOffsetY: number;
-    zIndex: number;
-    invert: boolean;
-    dotColor: string | null;
-    magnetic: boolean;
-    mode: 'normal' | 'bouncy' | 'slow';
-};
-export type Color = { r: number, g: number, b: number };
+    license: string | null
+    color: string | string[]
+    opacity: number
+    size: number
+    focusableElements: string
+    focusableElementsOffsetX: number
+    focusableElementsOffsetY: number
+    zIndex: number
+    invert: boolean
+    dotColor: string | null
+    magnetic: boolean
+    mode: 'normal' | 'bouncy' | 'slow'
+}
+export type Color = { r: number; g: number; b: number }
 export default class Blobity {
-    private readonly canvas: HTMLCanvasElement;
-    private readonly ctx: CanvasRenderingContext2D;
-    private readonly kinetInstance: Kinet;
-    private readonly throttledMouseMove: (event: MouseEvent) => void;
+    private readonly canvas: HTMLCanvasElement
+    private readonly ctx: CanvasRenderingContext2D
+    private readonly kinetInstance: Kinet
+    private readonly throttledMouseMove: (event: MouseEvent) => void
     private options: Options = {
         color: 'rgb(180, 180, 180)',
         opacity: 1,
@@ -36,15 +36,15 @@ export default class Blobity {
         dotColor: null,
         magnetic: false,
         mode: 'normal',
-    };
-    private initialized: boolean = false;
-    private color: Color | Color[] = {r: 0, g: 0, b: 0};
-    private stickedToElement: HTMLElement | null = null;
-    private disablingStickedToElementTimeout: NodeJS.Timeout | null = null;
-    private isActive: boolean = true;
-    private globalStyles?: HTMLStyleElement;
-    private destroyed: boolean = false;
-    private currentMagnetic: Magnetic | null = null;
+    }
+    private initialized: boolean = false
+    private color: Color | Color[] = { r: 0, g: 0, b: 0 }
+    private stickedToElement: HTMLElement | null = null
+    private disablingStickedToElementTimeout: NodeJS.Timeout | null = null
+    private isActive: boolean = true
+    private globalStyles?: HTMLStyleElement
+    private destroyed: boolean = false
+    private currentMagnetic: Magnetic | null = null
     private kinetPresets = {
         normal: {
             acceleration: 0.1,
@@ -58,33 +58,40 @@ export default class Blobity {
             acceleration: 0.06,
             friction: 0.35,
         },
-    };
+    }
 
     constructor(options: Partial<Options>) {
-        this.canvas = document.createElement('canvas');
-        document.body.appendChild(this.canvas);
+        this.canvas = document.createElement('canvas')
+        document.body.appendChild(this.canvas)
 
-        this.updateOptions(options);
-        if (!this.options.license || !/[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}/.test(this.options.license)) {
-            console.warn('Valid license number for Blobity is required. You can get one at https://blobity.gmrchk.com.');
+        this.updateOptions(options)
+        if (
+            !this.options.license ||
+            !/[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}/.test(
+                this.options.license
+            )
+        ) {
+            console.warn(
+                'Valid license number for Blobity is required. You can get one at https://blobity.gmrchk.com.'
+            )
         }
 
-        this.ctx = this.canvas.getContext('2d')!;
-        this.ctx.canvas.width  = window.innerWidth;
-        this.ctx.canvas.height = window.innerHeight;
+        this.ctx = this.canvas.getContext('2d')!
+        this.ctx.canvas.width = window.innerWidth
+        this.ctx.canvas.height = window.innerHeight
 
         this.kinetInstance = new Kinet({
-            names: ["x", "y", "opacity", "width", "height", "radius"],
+            names: ['x', 'y', 'opacity', 'width', 'height', 'radius'],
             acceleration: this.kinetPresets[this.options.mode].acceleration,
-            friction: this.kinetPresets[this.options.mode].friction
-        });
+            friction: this.kinetPresets[this.options.mode].friction,
+        })
 
-        this.kinetInstance.set('x', window.innerWidth / 2);
-        this.kinetInstance.set('y', window.innerHeight / 2);
-        this.kinetInstance.set('width', this.options.size);
-        this.kinetInstance.set('height', this.options.size);
-        this.kinetInstance.set('opacity', 0);
-        this.kinetInstance.set('radius', this.options.size / 2);
+        this.kinetInstance.set('x', window.innerWidth / 2)
+        this.kinetInstance.set('y', window.innerHeight / 2)
+        this.kinetInstance.set('width', this.options.size)
+        this.kinetInstance.set('height', this.options.size)
+        this.kinetInstance.set('opacity', 0)
+        this.kinetInstance.set('radius', this.options.size / 2)
 
         this.kinetInstance.on('tick', (instances) => {
             this.render(
@@ -95,58 +102,68 @@ export default class Blobity {
                 instances.radius.current,
                 instances.x.velocity,
                 instances.y.velocity,
-                instances.opacity.current,
-            );
-        });
+                instances.opacity.current
+            )
+        })
 
-        this.throttledMouseMove = throttle(this.mouseMove);
+        this.throttledMouseMove = throttle(this.mouseMove)
 
-        window.addEventListener('resize', this.resize, { passive: true });
-        this.resize();
+        window.addEventListener('resize', this.resize, { passive: true })
+        this.resize()
 
-        window.addEventListener('mousemove', this.throttledMouseMove, { passive: true });
-        document.addEventListener('mouseenter', this.windowMouseEnter);
-        document.addEventListener('mouseleave', this.windowMouseLeave);
+        window.addEventListener('mousemove', this.throttledMouseMove, {
+            passive: true,
+        })
+        document.addEventListener('mouseenter', this.windowMouseEnter)
+        document.addEventListener('mouseleave', this.windowMouseLeave)
 
-        document.addEventListener('mouseover', this.focusableElementMouseEnter);
-        document.addEventListener('mouseout', this.focusableElementMouseLeave);
+        document.addEventListener('mouseover', this.focusableElementMouseEnter)
+        document.addEventListener('mouseout', this.focusableElementMouseLeave)
 
-        document.addEventListener('touchstart', this.disable);
-        document.addEventListener('mousedown', this.enable);
+        document.addEventListener('touchstart', this.disable)
+        document.addEventListener('mousedown', this.enable)
     }
 
     public updateOptions = (newOptions: Partial<Options>) => {
         this.options = {
             ...this.options,
             ...newOptions,
-        };
+        }
 
         if (Array.isArray(this.options.color)) {
-            this.color = this.options.color.map(color => convertColor(color))
+            this.color = this.options.color.map((color) => convertColor(color))
         } else {
-            this.color = convertColor(this.options.color);
+            this.color = convertColor(this.options.color)
         }
 
         if (this.options.invert) {
-            this.color = convertColor('rgb(255, 255, 255)');
+            this.color = convertColor('rgb(255, 255, 255)')
         }
 
         if (this.options.dotColor) {
             if (!this.globalStyles) {
-                const dot = `<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill-rule="evenodd" fill="${this.options.dotColor}"/></svg>`;
+                const dot = `<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill-rule="evenodd" fill="${this.options.dotColor}"/></svg>`
 
-                this.globalStyles = document.createElement('style');
-                this.globalStyles.setAttribute('data-blobity-global-styles', '');
-                this.globalStyles.appendChild(document.createTextNode('* {cursor: inherit}'));
-                this.globalStyles.appendChild(document.createTextNode(`html { cursor: url(data:image/svg+xml;base64,${btoa(dot)}) 4 4, auto;}`));
-                document.head.appendChild(this.globalStyles);
+                this.globalStyles = document.createElement('style')
+                this.globalStyles.setAttribute('data-blobity-global-styles', '')
+                this.globalStyles.appendChild(
+                    document.createTextNode('* {cursor: inherit}')
+                )
+                this.globalStyles.appendChild(
+                    document.createTextNode(
+                        `html { cursor: url(data:image/svg+xml;base64,${btoa(
+                            dot
+                        )}) 4 4, auto;}`
+                    )
+                )
+                document.head.appendChild(this.globalStyles)
             }
         } else {
             if (this.globalStyles) {
-                document.head.removeChild(this.globalStyles);
+                document.head.removeChild(this.globalStyles)
             }
 
-            this.globalStyles = undefined;
+            this.globalStyles = undefined
         }
 
         this.canvas.style.cssText = `
@@ -163,220 +180,272 @@ export default class Blobity {
             opacity: ${this.options.opacity}; 
             z-index: ${this.options.invert ? 2147483647 : this.options.zIndex}; 
             ${this.options.invert && 'mix-blend-mode: difference'};
-        `;
+        `
 
         if (this.kinetInstance) {
             Object.values(this.kinetInstance._instances).forEach((instance) => {
-                instance._friction = 1 - this.kinetPresets[this.options.mode].friction;
-                instance._acceleration = this.kinetPresets[this.options.mode].acceleration;
+                instance._friction =
+                    1 - this.kinetPresets[this.options.mode].friction
+                instance._acceleration =
+                    this.kinetPresets[this.options.mode].acceleration
             })
         }
     }
 
     public destroy = () => {
         if (this.destroyed) {
-            return;
+            return
         }
 
-        window.removeEventListener('resize', this.resize);
+        window.removeEventListener('resize', this.resize)
 
-        window.removeEventListener('mousemove', this.throttledMouseMove);
-        document.removeEventListener('mouseenter', this.windowMouseEnter);
-        document.removeEventListener('mouseleave', this.windowMouseLeave);
+        window.removeEventListener('mousemove', this.throttledMouseMove)
+        document.removeEventListener('mouseenter', this.windowMouseEnter)
+        document.removeEventListener('mouseleave', this.windowMouseLeave)
 
-        document.removeEventListener('mouseover', this.focusableElementMouseEnter);
-        document.removeEventListener('mouseout', this.focusableElementMouseLeave);
+        document.removeEventListener(
+            'mouseover',
+            this.focusableElementMouseEnter
+        )
+        document.removeEventListener(
+            'mouseout',
+            this.focusableElementMouseLeave
+        )
 
-        document.removeEventListener('touchstart', this.disable);
-        document.removeEventListener('mousedown', this.enable);
+        document.removeEventListener('touchstart', this.disable)
+        document.removeEventListener('mousedown', this.enable)
 
-        document.body.removeChild(this.canvas);
-        document.documentElement.style.cursor = '';
+        document.body.removeChild(this.canvas)
+        document.documentElement.style.cursor = ''
 
         if (this.globalStyles) {
-            document.head.removeChild(this.globalStyles);
+            document.head.removeChild(this.globalStyles)
         }
 
-        this.destroyed = true;
+        this.destroyed = true
     }
 
     private disable = () => {
-        this.isActive = false;
-        this.clear();
+        this.isActive = false
+        this.clear()
     }
 
     private enable = () => {
-        this.isActive = true;
+        this.isActive = true
     }
 
     private focusableElementMouseEnter = (event: MouseEvent) => {
         if (event.target) {
-            const element = event.target as HTMLElement;
+            const element = event.target as HTMLElement
 
-            if (this.options.focusableElements && element.matches && element.matches(this.options.focusableElements)) {
-                this.stickedToElement = element;
-                this.currentMagnetic = new Magnetic(element);
+            if (
+                this.options.focusableElements &&
+                element.matches &&
+                element.matches(this.options.focusableElements)
+            ) {
+                this.stickedToElement = element
+                this.currentMagnetic = new Magnetic(element)
             }
         }
     }
 
     private focusableElementMouseLeave = (event: MouseEvent) => {
         if (event.target) {
-            const element = event.target as HTMLElement;
+            const element = event.target as HTMLElement
 
-            if (this.options.focusableElements && element.matches && element.matches(this.options.focusableElements)) {
-                this.stickedToElement = null;
-                this.currentMagnetic!.destroy();
-                this.currentMagnetic = null;
-                this.resetMorph(event.clientX, event.clientY);
+            if (
+                this.options.focusableElements &&
+                element.matches &&
+                element.matches(this.options.focusableElements)
+            ) {
+                this.stickedToElement = null
+                this.currentMagnetic!.destroy()
+                this.currentMagnetic = null
+                this.resetMorph(event.clientX, event.clientY)
             }
         }
     }
 
     private windowMouseEnter = () => {
-        this.kinetInstance.animate('opacity', 1);
+        this.kinetInstance.animate('opacity', 1)
     }
 
     private windowMouseLeave = () => {
-        this.kinetInstance.animate('opacity', 0);
+        this.kinetInstance.animate('opacity', 0)
     }
 
     private mouseMove = (event: MouseEvent) => {
         if (this.initialized) {
             if (this.stickedToElement) {
-                const rect = this.stickedToElement.getBoundingClientRect();
-                this.morph(rect);
+                const rect = this.stickedToElement.getBoundingClientRect()
+                this.morph(rect)
             } else {
-                this.kinetInstance.animate('x', event.clientX - this.options.size / 2);
-                this.kinetInstance.animate('y', event.clientY - this.options.size / 2);
+                this.kinetInstance.animate(
+                    'x',
+                    event.clientX - this.options.size / 2
+                )
+                this.kinetInstance.animate(
+                    'y',
+                    event.clientY - this.options.size / 2
+                )
             }
         } else {
-            this.initialized = true;
-            this.kinetInstance.set('x', event.clientX - this.options.size / 2);
-            this.kinetInstance.set('y', event.clientY - this.options.size / 2);
-            this.kinetInstance.animate('opacity', 1);
+            this.initialized = true
+            this.kinetInstance.set('x', event.clientX - this.options.size / 2)
+            this.kinetInstance.set('y', event.clientY - this.options.size / 2)
+            this.kinetInstance.animate('opacity', 1)
         }
     }
 
-    private morph({width, height, x, y}: {
-        width: number,
-        height: number,
-        x: number,
-        y: number,
+    private morph({
+        width,
+        height,
+        x,
+        y,
+    }: {
+        width: number
+        height: number
+        x: number
+        y: number
     }) {
         if (this.disablingStickedToElementTimeout) {
-            clearTimeout(this.disablingStickedToElementTimeout);
+            clearTimeout(this.disablingStickedToElementTimeout)
         }
-        this.kinetInstance.animate('radius', 4);
-        this.kinetInstance.animate('width', width + this.options.focusableElementsOffsetX * 2);
-        this.kinetInstance.animate('height', height + this.options.focusableElementsOffsetY * 2);
-        this.kinetInstance.animate('x', x - this.options.focusableElementsOffsetX);
-        this.kinetInstance.animate('y', y - this.options.focusableElementsOffsetY);
+        this.kinetInstance.animate('radius', 4)
+        this.kinetInstance.animate(
+            'width',
+            width + this.options.focusableElementsOffsetX * 2
+        )
+        this.kinetInstance.animate(
+            'height',
+            height + this.options.focusableElementsOffsetY * 2
+        )
+        this.kinetInstance.animate(
+            'x',
+            x - this.options.focusableElementsOffsetX
+        )
+        this.kinetInstance.animate(
+            'y',
+            y - this.options.focusableElementsOffsetY
+        )
     }
 
     private resetMorph = (x: number, y: number) => {
         this.disablingStickedToElementTimeout = setTimeout(() => {
-            this.kinetInstance.animate('width', this.options.size);
-            this.kinetInstance.animate('height', this.options.size);
-            this.kinetInstance.animate('radius', this.options.size / 2);
-            this.kinetInstance.animate('x', x);
-            this.kinetInstance.animate('y', y);
-        });
+            this.kinetInstance.animate('width', this.options.size)
+            this.kinetInstance.animate('height', this.options.size)
+            this.kinetInstance.animate('radius', this.options.size / 2)
+            this.kinetInstance.animate('x', x)
+            this.kinetInstance.animate('y', y)
+        })
     }
 
     private clear = () => {
-        this.ctx.resetTransform();
-        this.ctx.rotate(0);
-        this.ctx.clearRect(-20, -20, window.innerWidth + 20, window.innerHeight + 20);
+        this.ctx.resetTransform()
+        this.ctx.rotate(0)
+        this.ctx.clearRect(
+            -20,
+            -20,
+            window.innerWidth + 20,
+            window.innerHeight + 20
+        )
     }
 
-    private render(x: number, y: number, width: number, height: number, radius: number, velocityX: number, velocityY: number, opacity: number) {
-        this.clear();
+    private render(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        radius: number,
+        velocityX: number,
+        velocityY: number,
+        opacity: number
+    ) {
+        this.clear()
 
         if (this.isActive) {
-            const ctx = this.ctx;
-            ctx.globalAlpha = opacity;
+            const ctx = this.ctx
+            ctx.globalAlpha = opacity
 
-            ctx.setTransform(1, 0, 0, 1, x, y);
+            ctx.setTransform(1, 0, 0, 1, x, y)
 
-            const activateBlur = Math.abs(width - this.options.size) < 2 && Math.abs(height - this.options.size) < 2;
+            const activateBlur =
+                Math.abs(width - this.options.size) < 2 &&
+                Math.abs(height - this.options.size) < 2
 
             if (activateBlur) {
-                const angle = Math.atan2(velocityY, velocityX) * 180 / Math.PI + 180;
+                const angle =
+                    (Math.atan2(velocityY, velocityX) * 180) / Math.PI + 180
 
-                ctx.translate(radius, radius);
-                ctx.rotate(angle * Math.PI / 180);
-                ctx.translate(-radius, -radius);
+                ctx.translate(radius, radius)
+                ctx.rotate((angle * Math.PI) / 180)
+                ctx.translate(-radius, -radius)
             }
 
-            const cumulativeVelocity = activateBlur ? Math.sqrt(
-                Math.pow(Math.abs(velocityX), 2) + Math.pow(Math.abs(velocityY), 2)
-            ) / 2 : 0;
+            const cumulativeVelocity = activateBlur
+                ? Math.sqrt(
+                      Math.pow(Math.abs(velocityX), 2) +
+                          Math.pow(Math.abs(velocityY), 2)
+                  ) / 2
+                : 0
 
-            ctx.beginPath();
-            ctx.moveTo(radius, 0);
+            ctx.beginPath()
+            ctx.moveTo(radius, 0)
             ctx.arcTo(
                 width + cumulativeVelocity,
                 cumulativeVelocity / 2,
                 width + cumulativeVelocity,
                 height + cumulativeVelocity / 2,
                 positive(radius - cumulativeVelocity / 2)
-            );
+            )
             ctx.arcTo(
                 width + cumulativeVelocity,
                 height - cumulativeVelocity / 2,
                 cumulativeVelocity,
                 height - cumulativeVelocity / 2,
                 positive(radius - cumulativeVelocity / 2)
-            );
-            ctx.arcTo(
-                0,
-                height,
-                0,
-                0,
-                positive(radius)
-            );
-            ctx.arcTo(
-                0,
-                0,
-                width,
-                0,
-                positive(radius)
-            );
-            ctx.closePath();
+            )
+            ctx.arcTo(0, height, 0, 0, positive(radius))
+            ctx.arcTo(0, 0, width, 0, positive(radius))
+            ctx.closePath()
 
             if (isGradient(this.color!)) {
-                const gradient = ctx.createLinearGradient(0,0, width, height);
+                const gradient = ctx.createLinearGradient(0, 0, width, height)
 
-                const length = this.color.length;
+                const length = this.color.length
                 this.color.forEach((color, index) => {
-                    gradient.addColorStop(1 / (length - 1) * index, `rgb(${color.r}, ${color.g}, ${color.b})`);
-                });
+                    gradient.addColorStop(
+                        (1 / (length - 1)) * index,
+                        `rgb(${color.r}, ${color.g}, ${color.b})`
+                    )
+                })
 
-                ctx.fillStyle = gradient;
+                ctx.fillStyle = gradient
             } else {
-                ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+                ctx.fillStyle = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`
             }
 
-            ctx.fill();
+            ctx.fill()
         }
     }
 
     private resize = () => {
-        this.ctx.canvas.width  = window.innerWidth;
-        this.ctx.canvas.height = window.innerHeight;
+        this.ctx.canvas.width = window.innerWidth
+        this.ctx.canvas.height = window.innerHeight
     }
 }
 
-const autoStart = document.querySelector('script[src^="https://blobity.gmrchk.com/blobity.min.js"]') as HTMLScriptElement;
+const autoStart = document.querySelector(
+    'script[src^="https://blobity.gmrchk.com/blobity.min.js"]'
+) as HTMLScriptElement
 if (autoStart) {
-    const url = new URL(autoStart.src);
-    const params = url.searchParams;
+    const url = new URL(autoStart.src)
+    const params = url.searchParams
 
     if (params.get('noAutoStart') === null) {
         // @ts-ignore
         window.blobity = new Blobity({
-            license: params.get('license')
-        });
+            license: params.get('license'),
+        })
     }
 }

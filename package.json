@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.171",
+    "prettier": "^2.3.2",
     "terser-webpack-plugin": "^5.1.4",
     "ts-loader": "^9.2.3",
     "tsc": "^2.0.3",
