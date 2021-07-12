@@ -15,9 +15,11 @@ const baseConfig = {
         ],
     },
     optimization: {
+        minimize: true,
         minimizer: [
             new TerserPlugin({
                 parallel: true,
+                extractComments: false,
                 include: /\.min\.js$/,
             }),
         ],
