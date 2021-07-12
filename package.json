@@ -9,7 +9,7 @@
     "build:lib": "tsc",
     "build:dist": "webpack-cli",
     "build:site": "npm run build --prefix site",
-    "build": "npm run build:cleanup && npm run build:lib && npm run build:dist",
+    "build": "npm run build:cleanup && npm run build:lib && npm run build:site && npm run build:dist",
     "watch:site": "npm run develop --prefix site",
     "watch": "webpack-cli --watch --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
