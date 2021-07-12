@@ -1,7 +1,7 @@
-const TerserPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin')
 
 const baseConfig = {
-    mode: "production",
+    mode: 'production',
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
     },
@@ -18,36 +18,37 @@ const baseConfig = {
         minimizer: [
             new TerserPlugin({
                 parallel: true,
-                include: /\.min\.js$/
+                include: /\.min\.js$/,
             }),
-        ]
-    }
+        ],
+    },
 }
 
 const config = Object.assign({}, baseConfig, {
     entry: {
-        "blobity": "./src/entry.ts",
-        "blobity.min": "./src/entry.ts",
+        blobity: './src/entry.ts',
+        'blobity.min': './src/entry.ts',
     },
     output: {
-        path: __dirname + "/dist/",
-        library: "Blobity",
-        libraryTarget: "umd",
-        filename: "[name].js",
+        path: __dirname + '/dist/',
+        library: 'Blobity',
+        libraryTarget: 'umd',
+        filename: '[name].js',
     },
-});
-const docsConfig = Object.assign({}, baseConfig, {
-    entry: {
-        "blobity": "./src/entry.ts",
-        "blobity.min": "./src/entry.ts",
-    },
-    output: {
-        path: __dirname + "/site/public",
-        library: "Blobity",
-        libraryTarget: "umd",
-        filename: "[name].js",
-    },
-    devtool: 'eval-cheap-source-map',
-});
+})
+const docsConfig = (mode) =>
+    Object.assign({}, baseConfig, {
+        entry: {
+            blobity: './src/entry.ts',
+            'blobity.min': './src/entry.ts',
+        },
+        output: {
+            path: __dirname + '/site/public',
+            library: 'Blobity',
+            libraryTarget: 'umd',
+            filename: '[name].js',
+        },
+        devtool: mode === 'development' ? 'eval-cheap-source-map' : undefined,
+    })
 
-module.exports = [config, docsConfig];
+module.exports = (env, argv) => [config, docsConfig(argv.mode)]
