@@ -21,6 +21,7 @@ declare module 'kinet' {
             [key: string]: {
                 _acceleration: number
                 _friction: number
+                velocity: number
             }
         }
     }

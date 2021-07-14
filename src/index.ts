@@ -81,10 +81,13 @@ export default class Blobity {
         this.ctx.canvas.height = window.innerHeight
 
         this.kinetInstance = new Kinet({
-            names: ['x', 'y', 'opacity', 'width', 'height', 'radius'],
+            names: ['x', 'y', 'opacity', 'width', 'height', 'radius', 'scale'],
             acceleration: this.kinetPresets[this.options.mode].acceleration,
             friction: this.kinetPresets[this.options.mode].friction,
         })
+
+        this.kinetInstance._instances.scale._acceleration = 0.06
+        this.kinetInstance._instances.scale._friction = 1 - 0.1
 
         this.kinetInstance.set('x', window.innerWidth / 2)
         this.kinetInstance.set('y', window.innerHeight / 2)
@@ -92,6 +95,7 @@ export default class Blobity {
         this.kinetInstance.set('height', this.options.size)
         this.kinetInstance.set('opacity', 0)
         this.kinetInstance.set('radius', this.options.size / 2)
+        this.kinetInstance.set('scale', 100)
 
         this.kinetInstance.on('tick', (instances) => {
             this.render(
@@ -102,7 +106,8 @@ export default class Blobity {
                 instances.radius.current,
                 instances.x.velocity,
                 instances.y.velocity,
-                instances.opacity.current
+                instances.opacity.current,
+                instances.scale.current
             )
         })
 
@@ -119,6 +124,9 @@ export default class Blobity {
 
         document.addEventListener('mouseover', this.focusableElementMouseEnter)
         document.addEventListener('mouseout', this.focusableElementMouseLeave)
+
+        document.addEventListener('mousedown', this.mouseDown)
+        document.addEventListener('mouseup', this.mouseUp)
 
         document.addEventListener('touchstart', this.disable)
         document.addEventListener('mousedown', this.enable)
@@ -183,13 +191,23 @@ export default class Blobity {
         `
 
         if (this.kinetInstance) {
-            Object.values(this.kinetInstance._instances).forEach((instance) => {
-                instance._friction =
-                    1 - this.kinetPresets[this.options.mode].friction
-                instance._acceleration =
-                    this.kinetPresets[this.options.mode].acceleration
-            })
+            Object.entries(this.kinetInstance._instances)
+                .filter(([name]) => name !== 'scale')
+                .forEach(([, instance]) => {
+                    instance._friction =
+                        1 - this.kinetPresets[this.options.mode].friction
+                    instance._acceleration =
+                        this.kinetPresets[this.options.mode].acceleration
+                })
+
+            this.bounce()
         }
+    }
+
+    private bounce() {
+        this.kinetInstance.set('scale', 97)
+        this.kinetInstance._instances.scale.velocity = 3
+        this.kinetInstance.animate('scale', 100)
     }
 
     public destroy = () => {
@@ -264,6 +282,15 @@ export default class Blobity {
                 this.resetMorph(event.clientX, event.clientY)
             }
         }
+    }
+
+    private mouseDown = () => {
+        this.kinetInstance.animate('scale', 97)
+    }
+
+    private mouseUp = () => {
+        this.bounce()
+        //this.kinetInstance.animate('scale', 100)
     }
 
     private windowMouseEnter = () => {
@@ -359,7 +386,8 @@ export default class Blobity {
         radius: number,
         velocityX: number,
         velocityY: number,
-        opacity: number
+        opacity: number,
+        scale: number
     ) {
         this.clear()
 
@@ -367,7 +395,11 @@ export default class Blobity {
             const ctx = this.ctx
             ctx.globalAlpha = opacity
 
-            ctx.setTransform(1, 0, 0, 1, x, y)
+            ctx.setTransform(scale / 100, 0, 0, scale / 100, x, y)
+
+            ctx.translate(width, height)
+            ctx.scale(scale / 100, scale / 100)
+            ctx.translate(-width, -height)
 
             const activateBlur =
                 Math.abs(width - this.options.size) < 2 &&
