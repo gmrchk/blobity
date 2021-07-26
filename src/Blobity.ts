@@ -288,6 +288,19 @@ export default class Blobity {
                 const magnetic = element.getAttribute('data-blobity-magnetic');
                 if (this.options.magnetic && magnetic !== 'false') {
                     this.currentMagnetic = new Magnetic(element);
+                    this.currentMagnetic.onTick = () => {
+                        const rect = element.getBoundingClientRect();
+                        const radius = element.getAttribute(
+                            'data-blobity-radius'
+                        );
+                        this.kinetInstance.animate('textOpacity', 0);
+                        this.morph(
+                            rect,
+                            radius != undefined
+                                ? parseInt(radius)
+                                : this.options.radius
+                        );
+                    };
                 }
             }
         }
@@ -305,6 +318,7 @@ export default class Blobity {
 
                 if (this.currentMagnetic) {
                     this.currentMagnetic!.destroy();
+                    this.currentMagnetic.onTick = null;
                     this.currentMagnetic = null;
                 }
 
