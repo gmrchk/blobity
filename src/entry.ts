@@ -5,5 +5,20 @@
  */
 
 // this is here for webpack to expose Blobity as window.Blobity
-import Blobity from './index'
-module.exports = Blobity
+import Blobity from './Blobity';
+module.exports = Blobity;
+
+const autoStart = document.querySelector(
+    'script[src^="https://blobity.gmrchk.com/blobity.min.js"]'
+) as HTMLScriptElement;
+if (autoStart) {
+    const url = new URL(autoStart.src);
+    const params = url.searchParams;
+
+    if (params.get('noAutoStart') === null) {
+        // @ts-ignore
+        window.blobity = new Blobity({
+            licenseKey: params.get('licenseKey'),
+        });
+    }
+}

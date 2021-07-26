@@ -1,4 +1,4 @@
-import { Color } from './index'
+export type Color = { r: number; g: number; b: number }
 
 export const extractRgbFromHex = (hex: string) => {
     const r = parseInt(hex.slice(1, 3), 16)
