@@ -20,6 +20,7 @@ export type Options = {
     font: string;
     fontWeight: number;
     fontSize: number;
+    fontColor: string;
     tooltipPadding: number;
 };
 export default class Blobity {
@@ -44,10 +45,12 @@ export default class Blobity {
         font: 'sans-serif',
         fontWeight: 400,
         fontSize: 40,
+        fontColor: '#000000',
         tooltipPadding: 4,
     };
     private initialized: boolean = false;
     private color: Color | Color[] = { r: 0, g: 0, b: 0 };
+    private fontColor: Color = { r: 0, g: 0, b: 0 };
     private stickedToElement: HTMLElement | null = null;
     private sticketToElementTooltip: string | null = null;
     private disablingStickedToElementTimeout: NodeJS.Timeout | null = null;
@@ -159,6 +162,8 @@ export default class Blobity {
         } else {
             this.color = convertColor(this.options.color);
         }
+
+        this.fontColor = convertColor(this.options.fontColor);
 
         if (this.options.invert) {
             this.color = convertColor('rgb(255, 255, 255)');
@@ -539,7 +544,9 @@ export default class Blobity {
                 this.ctx.textBaseline = 'middle';
                 this.ctx.textAlign = 'left';
                 this.ctx.font = `${this.options.fontWeight} ${this.options.fontSize}px ${this.options.font}`;
-                ctx.fillStyle = `rgba(0, 0, 0, ${textOpacity / 100})`;
+                ctx.fillStyle = `rgba(
+                ${this.fontColor.r}, ${this.fontColor.g}, 
+                ${this.fontColor.b}, ${textOpacity / 100})`;
                 ctx.fillText(
                     this.sticketToElementTooltip,
                     5 + this.options.tooltipPadding,
