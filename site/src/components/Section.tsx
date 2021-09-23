@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Text } from '../components/Text';
 
 type Props = {
     id?: string;
@@ -15,6 +16,7 @@ const Wrapper = styled.section`
 const Inner = styled.div<{
     extraSpace?: boolean;
     thin?: boolean;
+    thiner?: boolean;
     center?: boolean;
 }>`
     display: block;
@@ -24,6 +26,12 @@ const Inner = styled.div<{
     max-width: ${({ thin }) => (thin ? '840px' : '1480px')};
     text-align: ${({ center }) => (center ? 'center' : 'left')};
     ${({ extraSpace }) => (extraSpace ? 'max-height: 74vh' : '')};
+
+    ${Text} {
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 `;
 
 export const Section: React.FC<Props> = ({

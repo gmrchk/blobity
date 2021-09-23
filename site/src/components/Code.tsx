@@ -30,6 +30,12 @@ const Label = styled.div`
     z-index: 1;
 `;
 
+export const InlineCode = styled.code`
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 6px;
+    border-radius: 3px;
+`;
+
 export const htmlExample = `<script src="https://blobity.dev/bt.js?licenseKey=..."></script>
 
 <!-- or create instance manually to provide custom options -->
