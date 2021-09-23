@@ -7,7 +7,8 @@ import Scrl from 'scrl';
 
 const Wrapper = styled.header`
     display: block;
-    position: fixed;
+    position: sticky;
+    top: 0;
     text-align: center;
     width: 100%;
     padding: 20px;

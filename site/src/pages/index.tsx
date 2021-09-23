@@ -13,6 +13,7 @@ import { Options } from '../components/Options';
 import { Price } from '../components/Price';
 import { BigText } from '../components/BigText';
 import { Dots } from '../components/Dots';
+import { Notice } from '../components/Notice';
 import { Code, htmlExample, reactExample } from '../components/Code';
 
 export const initiaBlobityOptions = {
@@ -42,6 +43,7 @@ export default () => {
     return (
         <div>
             <Head title={'Blobity | Level up your cursor game'} />
+            <Notice />
             <Header />
             <Section hero>
                 <Title>Blobity</Title>
