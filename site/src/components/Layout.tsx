@@ -5,10 +5,15 @@ type Props = {
     reversed?: boolean;
 };
 
+export const media = {
+    midUp: `only screen and (min-width: 768px)`,
+    largeUp: `only screen and (min-width: 1200px)`,
+};
+
 export const Half = styled.div`
     width: 100%;
 
-    @media only screen and (min-width: 768px) {
+    @media ${media.midUp} {
         width: 50%;
     }
 `;
@@ -22,7 +27,7 @@ const Wrapper = styled.div<Props>`
     ${Half} {
         padding-bottom: 40px;
 
-        @media only screen and (min-width: 768px) {
+        @media ${media.midUp} {
             padding-bottom: 0;
             &:nth-child(1) {
                 padding-right: 30px;
@@ -37,7 +42,7 @@ const Wrapper = styled.div<Props>`
     ${({ reversed }) =>
         reversed &&
         `
-        @media only screen and (min-width: 768px) {
+        @media ${media.midUp} {
             flex-direction: row-reverse;
     
             ${Half} {

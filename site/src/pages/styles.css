@@ -1,13 +1,13 @@
 html, body {
     margin: 0;
     width: 100%;
-    min-height: 100%;
     font-family: 'Montserrat', 'Source Sans Pro',-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
     color: #fff;
     font-size: 22px;
     position: relative;
     z-index: 3;
     background: #040404;
+    min-height: 100vh;
 }
 
 body {

@@ -15,7 +15,7 @@ const NotFoundPage = () => {
     return (
         <div>
             <Head title={'404 | Page not found | Blobity'} />
-            <Section hero>
+            <Section hero notFound>
                 <Title small>Page missing</Title>
                 <Text>
                     You know what that means. It was removed, or never even

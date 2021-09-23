@@ -2,6 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import github from '../images/github.svg';
 import { Button } from './Button';
+import { media } from './Layout';
 import Scrl from 'scrl';
 
 const Wrapper = styled.header`
@@ -43,8 +44,20 @@ const ListItem = styled.li`
     height: 36px;
     line-height: 36px;
 
+    &:first-child {
+        margin-left: 0 !important;
+    }
+
+    @media ${media.midUp} {
+        margin: 0 0 0 20px;
+    }
+
     &:last-child {
-        margin: 0 0 0 40px;
+        margin: 0 0 0 20px;
+
+        @media ${media.midUp} {
+            margin: 0 0 0 40px;
+        }
     }
 `;
 
@@ -53,6 +66,11 @@ const Link = styled.a`
     line-height: 36px;
     height: 36px;
     vertical-align: middle;
+    font-size: 14px;
+
+    @media ${media.midUp} {
+        font-size: 22px;
+    }
 
     img {
         width: 36px;

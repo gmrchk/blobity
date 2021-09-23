@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import github from '../images/github.svg';
+import { media } from './Layout';
 
 const Circle = styled.div`
     display: block;
@@ -10,6 +10,11 @@ const Circle = styled.div`
     border-radius: 50%;
     background: #666;
     z-index: 2;
+    margin: 0 auto;
+
+    @media ${media.midUp} {
+        float: right;
+    }
 
     &:before {
         content: '';
@@ -30,7 +35,7 @@ const Circle = styled.div`
     }
 `;
 
-const Wrapper = styled.header`
+const Wrapper = styled.footer`
     display: block;
     position: relative;
     text-align: center;
@@ -66,8 +71,17 @@ const Holder = styled.nav`
     width: 100%;
     margin: 0 auto;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    flex-direction: column;
+
+    @media ${media.midUp} {
+        flex-direction: row;
+    }
+
+    & > div {
+        margin: 5px auto;
+        min-width: 100px;
+    }
 `;
 
 export const Footer = () => {
@@ -79,7 +93,9 @@ export const Footer = () => {
                     Built in Prague by{' '}
                     <a href="https://github.com/gmrchk">Georgy</a>
                 </div>
-                <Circle />
+                <div>
+                    <Circle />
+                </div>
             </Holder>
         </Wrapper>
     );

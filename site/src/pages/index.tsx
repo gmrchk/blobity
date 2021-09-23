@@ -161,13 +161,13 @@ export default () => {
             <Section id="faq" thin>
                 <Headline>FAQ</Headline>
                 <h3>How long can I use Blobity?</h3>
-                <p>
+                <Text>
                     Blobity license is unlimited time-wise. You can use Blobity
                     for the entire lifetime of your project. No time limitations
                     or ongoing costs.
-                </p>
+                </Text>
                 <h3>Can I get a refund?</h3>
-                <p>
+                <Text>
                     Blobity is published publicly to npm registry, and to GitHub
                     including its source code, so there is plenty opportunity to
                     try anything there is to try before purchasing your license.
@@ -177,22 +177,22 @@ export default () => {
                         support@gmrchk.com
                     </Link>
                     .
-                </p>
+                </Text>
                 <h3>Do I get access to updates?</h3>
-                <p>
+                <Text>
                     You will have access to all future updates and you can
                     update to newer versions any time. All development happens
                     in the public GitHub repository, and is being pushed to
                     public npm registry as well following the semver versioning.
-                </p>
+                </Text>
                 <h3>Do you offer ongoing support?</h3>
-                <p>
+                <Text>
                     The better, the more stable, and the more features Blobity
                     has, the more customers it can attract, so it will surely
                     improve and get extended over time to some extent. Bugs are
                     fixed in a timely manner.
-                </p>
-                <p>
+                </Text>
+                <Text>
                     However, the software comes as is at the time of your
                     purchase, and no future developments are guaranteed. If you
                     want to make specific per-case requests or are looking for
@@ -201,9 +201,9 @@ export default () => {
                         support@gmrchk.com
                     </Link>
                     .
-                </p>
+                </Text>
             </Section>
-            <Section id="buy" center>
+            <Section id="buy" center last>
                 <Headline>Ready to get started?</Headline>
                 <Button href="#">Get Blobity</Button>
             </Section>

@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Dots } from './Dots';
+import { media } from './Layout';
 
 const Wrapper = styled.div`
     display: flex;
     position: relative;
-    font-size: 240px;
+    font-size: 180px;
     font-weight: 700;
     width: 100%;
     text-align: center;
@@ -13,6 +13,10 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+
+    @media ${media.largeUp} {
+        font-size: 240px;
+    }
 
     strong {
         position: absolute;
