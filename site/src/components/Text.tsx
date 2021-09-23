@@ -12,6 +12,16 @@ export const StyledHeadline = styled.h2`
     }
 `;
 
+export const SubHeadline = styled.h2`
+    font-size: 20px;
+    margin: 0 auto 20px;
+    padding: 0 20px 0 0;
+
+    @media ${media.midUp} {
+        font-size: 16px;
+    }
+`;
+
 export const Text = styled.p<{ small?: boolean }>`
     font-size: ${({ small }) => (small ? '13px' : '16px')};
 

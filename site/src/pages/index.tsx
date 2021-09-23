@@ -6,7 +6,7 @@ import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { Section } from '../components/Section';
 import { Title } from '../components/Title';
-import { Headline, Text } from '../components/Text';
+import { Headline, SubHeadline, Text } from '../components/Text';
 import { Layout, Half } from '../components/Layout';
 import { Button, Link } from '../components/Button';
 import { Options } from '../components/Options';
@@ -162,13 +162,13 @@ export default () => {
             </Section>
             <Section id="faq" thin>
                 <Headline>FAQ</Headline>
-                <h3>How long can I use Blobity?</h3>
+                <SubHeadline>How long can I use Blobity?</SubHeadline>
                 <Text>
                     Blobity license is unlimited time-wise. You can use Blobity
                     for the entire lifetime of your project. No time limitations
                     or ongoing costs.
                 </Text>
-                <h3>Can I get a refund?</h3>
+                <SubHeadline>Can I get a refund?</SubHeadline>
                 <Text>
                     Blobity is published publicly to npm registry, and to GitHub
                     including its source code, so there is plenty opportunity to
@@ -180,14 +180,14 @@ export default () => {
                     </Link>
                     .
                 </Text>
-                <h3>Do I get access to updates?</h3>
+                <SubHeadline>Do I get access to updates?</SubHeadline>
                 <Text>
                     You will have access to all future updates and you can
                     update to newer versions any time. All development happens
                     in the public GitHub repository, and is being pushed to
                     public npm registry as well following the semver versioning.
                 </Text>
-                <h3>Do you offer ongoing support?</h3>
+                <SubHeadline>Do you offer ongoing support?</SubHeadline>
                 <Text>
                     The better, the more stable, and the more features Blobity
                     has, the more customers it can attract, so it will surely
