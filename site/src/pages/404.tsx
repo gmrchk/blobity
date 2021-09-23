@@ -5,6 +5,7 @@ import { Text } from '../components/Text';
 import { Button } from '../components/Button';
 import { Section } from '../components/Section';
 import { InlineCode } from '../components/Code';
+import { Head } from '../components/Head';
 import { useBlobity } from '../../../lib';
 import { initiaBlobityOptions } from './index';
 
@@ -13,22 +14,7 @@ const NotFoundPage = () => {
 
     return (
         <div>
-            <Helmet>
-                <meta charSet="utf-8" />
-                <title>404 | Page not found | Blobity</title>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="shortcut icon" href="/icon.png" />
-                <link
-                    rel="preconnect"
-                    href="https://fonts.gstatic.com"
-                    // @ts-ignore copied from Google Fonts 🤷‍
-                    crossOrigin
-                />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap"
-                    rel="stylesheet"
-                />
-            </Helmet>
+            <Head title={'404 | Page not found | Blobity'} />
             <Section hero>
                 <Title small>Page missing</Title>
                 <Text>

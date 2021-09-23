@@ -1,7 +1,7 @@
 import React from 'react';
 import { useBlobity } from '../../../lib';
 import './styles.css';
-import { Helmet } from 'react-helmet';
+import { Head } from '../components/Head';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { Section } from '../components/Section';
@@ -41,22 +41,7 @@ export default () => {
 
     return (
         <div>
-            <Helmet>
-                <meta charSet="utf-8" />
-                <title>Blobity | Level up your cursor game</title>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="shortcut icon" href="/icon.png" />
-                <link
-                    rel="preconnect"
-                    href="https://fonts.gstatic.com"
-                    // @ts-ignore copied from Google Fonts 🤷‍
-                    crossOrigin
-                />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap"
-                    rel="stylesheet"
-                />
-            </Helmet>
+            <Head title={'Blobity | Level up your cursor game'} />
             <Header />
             <Section hero>
                 <Title>Blobity</Title>
