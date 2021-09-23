@@ -86,8 +86,15 @@ export default class Blobity {
         }
 
         this.ctx = this.canvas.getContext('2d')!;
-        this.ctx.canvas.width = window.innerWidth;
-        this.ctx.canvas.height = window.innerHeight;
+        this.ctx.canvas.style.width = `${window.innerWidth}px`;
+        this.ctx.canvas.style.height = `${window.innerHeight}px`;
+
+        this.ctx.canvas.width = window.innerWidth * window.devicePixelRatio;
+        this.ctx.canvas.height = window.innerHeight * window.devicePixelRatio;
+
+        if (window.devicePixelRatio > 1) {
+            this.ctx.imageSmoothingEnabled = false;
+        }
 
         this.kinetInstance = new Kinet({
             names: [
@@ -453,8 +460,8 @@ export default class Blobity {
         this.ctx.clearRect(
             -20,
             -20,
-            window.innerWidth + 20,
-            window.innerHeight + 20
+            window.innerWidth * window.devicePixelRatio + 20,
+            window.innerHeight * window.devicePixelRatio + 20
         );
     };
 
@@ -472,6 +479,14 @@ export default class Blobity {
     ) {
         this.clear();
 
+        x = x * window.devicePixelRatio;
+        y = y * window.devicePixelRatio;
+        width = width * window.devicePixelRatio;
+        height = height * window.devicePixelRatio;
+        radius = radius * window.devicePixelRatio;
+        velocityX = velocityX * window.devicePixelRatio;
+        velocityY = velocityY * window.devicePixelRatio;
+
         if (this.isActive) {
             const ctx = this.ctx;
             ctx.globalAlpha = opacity;
@@ -483,9 +498,13 @@ export default class Blobity {
             ctx.translate(-width, -height);
 
             const activateBlur =
-                Math.abs(width - this.options.size) < 2 &&
-                Math.abs(height - this.options.size) < 2 &&
-                Math.abs(radius - this.options.size / 2) < 2;
+                Math.abs(width - this.options.size * window.devicePixelRatio) <
+                    2 &&
+                Math.abs(height - this.options.size * window.devicePixelRatio) <
+                    2 &&
+                Math.abs(
+                    radius - (this.options.size * window.devicePixelRatio) / 2
+                ) < 2;
 
             if (activateBlur) {
                 const angle =
@@ -544,21 +563,29 @@ export default class Blobity {
             if (this.sticketToElementTooltip) {
                 this.ctx.textBaseline = 'middle';
                 this.ctx.textAlign = 'left';
-                this.ctx.font = `${this.options.fontWeight} ${this.options.fontSize}px ${this.options.font}`;
+                this.ctx.font = `${this.options.fontWeight} ${
+                    this.options.fontSize * window.devicePixelRatio
+                }px ${this.options.font}`;
                 ctx.fillStyle = `rgba(
                 ${this.fontColor.r}, ${this.fontColor.g}, 
                 ${this.fontColor.b}, ${textOpacity / 100})`;
                 ctx.fillText(
                     this.sticketToElementTooltip,
-                    5 + this.options.tooltipPadding,
-                    this.options.fontSize / 2 + 5 + this.options.tooltipPadding
+                    5 * window.devicePixelRatio +
+                        this.options.tooltipPadding * window.devicePixelRatio,
+                    (this.options.fontSize / 2) * window.devicePixelRatio +
+                        7 * window.devicePixelRatio +
+                        this.options.tooltipPadding
                 );
             }
         }
     }
 
     private resize = () => {
-        this.ctx.canvas.width = window.innerWidth;
-        this.ctx.canvas.height = window.innerHeight;
+        this.ctx.canvas.width = window.innerWidth * window.devicePixelRatio;
+        this.ctx.canvas.height = window.innerHeight * window.devicePixelRatio;
+
+        this.ctx.canvas.style.width = `${window.innerWidth}px`;
+        this.ctx.canvas.style.height = `${window.innerHeight}px`;
     };
 }
