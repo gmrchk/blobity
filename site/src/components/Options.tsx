@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import { Switch } from './Switch';
+import { media } from './Layout';
 import { initiaBlobityOptions } from '../pages/index';
 import Blobity from '../../../lib';
 import { generatePrettyColor } from '../utils/colorGenerator';
@@ -31,13 +32,24 @@ const Desc = styled.div`
     position: relative;
     z-index: 5;
     pointer-events: none;
+    font-size: 14px;
+    padding: 0 10px 0 0;
+
+    @media ${media.midUp} {
+        font-size: 16px;
+    }
 `;
 
 const Controls = styled.div`
     display: block;
     color: #888;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 10px;
+    white-space: nowrap;
+
+    @media ${media.midUp} {
+        font-size: 12px;
+    }
 `;
 
 export const generateColorPair = () => {
