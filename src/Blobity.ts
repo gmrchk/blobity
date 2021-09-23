@@ -33,7 +33,8 @@ export default class Blobity {
         opacity: 1,
         licenseKey: null,
         size: 40,
-        focusableElements: 'button, a',
+        focusableElements:
+            '[data-blobity], a:not([data-no-blobity]), button:not([data-no-blobity]), [data-blobity-tooltip]',
         focusableElementsOffsetX: 0,
         focusableElementsOffsetY: 0,
         zIndex: -1,
