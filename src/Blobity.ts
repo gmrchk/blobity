@@ -73,6 +73,9 @@ export default class Blobity {
             friction: 0.35,
         },
     };
+    private lastKnownCoordinates: { x: number; y: number } = { x: 0, y: 0 };
+    private currentOffsetX: number = 0;
+    private currentOffsetY: number = 0;
 
     constructor(options: Partial<Options>) {
         this.canvas = document.createElement('canvas');
@@ -222,6 +225,9 @@ export default class Blobity {
             ${this.options.invert && 'mix-blend-mode: difference'};
         `;
 
+        this.currentOffsetX = this.options.focusableElementsOffsetX;
+        this.currentOffsetY = this.options.focusableElementsOffsetY;
+
         if (this.kinetInstance) {
             Object.entries(this.kinetInstance._instances)
                 .filter(([name]) => name !== 'scale')
@@ -231,6 +237,23 @@ export default class Blobity {
                     instance._acceleration =
                         this.kinetPresets[this.options.mode].acceleration;
                 });
+
+            if (!this.stickedToElement && !this.sticketToElementTooltip) {
+                if (newOptions.radius !== undefined) {
+                    this.kinetInstance.animate('radius', this.options.radius);
+                }
+
+                this.kinetInstance.animate('width', this.options.size);
+                this.kinetInstance.animate('height', this.options.size);
+                this.kinetInstance.animate(
+                    'x',
+                    this.lastKnownCoordinates.x - this.options.size / 2
+                );
+                this.kinetInstance.animate(
+                    'y',
+                    this.lastKnownCoordinates.y - this.options.size / 2
+                );
+            }
 
             this.bounce();
         }
@@ -298,6 +321,21 @@ export default class Blobity {
                     this.sticketToElementTooltip = tooltip;
                 }
 
+                this.currentOffsetX = element.getAttribute(
+                    'data-blobity-offset-x'
+                )
+                    ? parseInt(
+                          String(element.getAttribute('data-blobity-offset-x'))
+                      )
+                    : this.options.focusableElementsOffsetX;
+                this.currentOffsetY = element.getAttribute(
+                    'data-blobity-offset-y'
+                )
+                    ? parseInt(
+                          String(element.getAttribute('data-blobity-offset-y'))
+                      )
+                    : this.options.focusableElementsOffsetY;
+
                 const magnetic = element.getAttribute('data-blobity-magnetic');
                 if (this.options.magnetic && magnetic !== 'false') {
                     this.currentMagnetic = new Magnetic(element);
@@ -328,6 +366,9 @@ export default class Blobity {
             if (element) {
                 this.stickedToElement = null;
                 this.sticketToElementTooltip = null;
+
+                this.currentOffsetX = this.options.focusableElementsOffsetX;
+                this.currentOffsetY = this.options.focusableElementsOffsetY;
 
                 if (this.currentMagnetic) {
                     this.currentMagnetic!.destroy();
@@ -390,6 +431,10 @@ export default class Blobity {
                     radius != undefined ? parseInt(radius) : this.options.radius
                 );
             } else {
+                this.lastKnownCoordinates = {
+                    x: event.clientX,
+                    y: event.clientY,
+                };
                 this.kinetInstance.animate('textOpacity', 0);
                 this.kinetInstance.animate(
                     'x',
@@ -399,6 +444,9 @@ export default class Blobity {
                     'y',
                     event.clientY - this.options.size / 2
                 );
+                this.kinetInstance.animate('width', this.options.size);
+                this.kinetInstance.animate('height', this.options.size);
+                this.kinetInstance.animate('radius', this.options.size / 2);
             }
         } else {
             this.initialized = true;
@@ -426,22 +474,10 @@ export default class Blobity {
             clearTimeout(this.disablingStickedToElementTimeout);
         }
         this.kinetInstance.animate('radius', radius);
-        this.kinetInstance.animate(
-            'width',
-            width + this.options.focusableElementsOffsetX * 2
-        );
-        this.kinetInstance.animate(
-            'height',
-            height + this.options.focusableElementsOffsetY * 2
-        );
-        this.kinetInstance.animate(
-            'x',
-            x - this.options.focusableElementsOffsetX
-        );
-        this.kinetInstance.animate(
-            'y',
-            y - this.options.focusableElementsOffsetY
-        );
+        this.kinetInstance.animate('width', width + this.currentOffsetX * 2);
+        this.kinetInstance.animate('height', height + this.currentOffsetY * 2);
+        this.kinetInstance.animate('x', x - this.currentOffsetX);
+        this.kinetInstance.animate('y', y - this.currentOffsetY);
     }
 
     private resetMorph = (x: number, y: number) => {
