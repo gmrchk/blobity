@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.h1`
     display: block;
-    font-size: 92px;
+    font-size: 140px;
     line-height: 1;
     margin: 0 auto;
 `;

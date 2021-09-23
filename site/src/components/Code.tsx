@@ -1,6 +1,13 @@
 import React from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import {
+    darcula,
+    atomDark,
+    vscDarkPlus,
+    duotoneDark,
+    duotoneSpace,
+    materialDark,
+} from 'react-syntax-highlighter/dist/esm/styles/prism';
 import styled from 'styled-components';
 
 type Props = {
@@ -20,10 +27,13 @@ const Label = styled.div`
     bottom: 0;
     right: 15px;
     transform: translateY(50%);
+    z-index: 1;
 `;
 
-export const htmlExample = `<script src="https://blobity.dev/bt.js?licenseKey=..."></script>`;
-export const htmlCustomExample = `<script src="https://blobity.dev/bt.js"></script>
+export const htmlExample = `<script src="https://blobity.dev/bt.js?licenseKey=..."></script>
+
+<!-- or create instance manually to provide custom options -->
+<script src="https://blobity.dev/bt.js"></script>
 <script>
     const blobity = new Blobity({
         licenseKey: '...'
@@ -40,15 +50,20 @@ const Component = () => {
 };`;
 
 export const Code: React.FC<Props> = ({ children, language }) => {
+    const onClick = () => {
+        navigator.clipboard.writeText(String(children));
+    };
+
     return (
         <Wrapper
             data-blobity-tooltip="Click to copy"
             data-blobity-magnetic="false"
+            onClick={onClick}
         >
             <SyntaxHighlighter
                 showLineNumbers={true}
                 language={language}
-                style={darcula}
+                style={vscDarkPlus}
             >
                 {children}
             </SyntaxHighlighter>

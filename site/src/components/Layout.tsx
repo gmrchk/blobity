@@ -6,28 +6,38 @@ type Props = {
 };
 
 export const Half = styled.div`
-    width: 50%;
+    width: 100%;
+
+    @media only screen and (min-width: 768px) {
+        width: 50%;
+    }
 `;
 
 const Wrapper = styled.div<Props>`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     ${Half} {
-        &:nth-child(1) {
-            padding-right: 30px;
-        }
+        padding-bottom: 40px;
 
-        &:nth-child(2) {
-            padding-left: 30px;
+        @media only screen and (min-width: 768px) {
+            padding-bottom: 0;
+            &:nth-child(1) {
+                padding-right: 30px;
+            }
+
+            &:nth-child(2) {
+                padding-left: 30px;
+            }
         }
     }
 
     ${({ reversed }) =>
         reversed &&
         `
-        &:nth-child(even) {
+        @media only screen and (min-width: 768px) {
             flex-direction: row-reverse;
     
             ${Half} {

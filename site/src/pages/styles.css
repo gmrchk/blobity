@@ -3,11 +3,16 @@ html, body {
     width: 100%;
     min-height: 100%;
     font-family: 'Montserrat', 'Source Sans Pro',-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
-    background: #000;
     color: #fff;
     font-size: 22px;
     position: relative;
-    z-index: 1;
+    z-index: 3;
+    background: #040404;
+}
+
+body {
+    background: linear-gradient(90deg, #040404 20px, transparent 1%) center, linear-gradient(#040404 20px, transparent 1%) center, #333;
+    background-size: 21px 21px;
 }
 
 * {
@@ -16,11 +21,15 @@ html, body {
 
 h1, h2, h3, h4, p {
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 h1, h2, h3, h4 {
     font-weight: 900;
+}
+
+h3, h4 {
+    margin: 50px auto 0;
 }
 
 p {
@@ -43,5 +52,5 @@ pre {
     border-radius: 4px;
     margin: 0 0 10px;
     position: relative;
-    z-index: -2;
+    z-index: 1;
 }

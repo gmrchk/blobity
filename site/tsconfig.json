@@ -9,7 +9,13 @@
     "outDir": "lib",
     "listEmittedFiles": true,
     "declaration": true,
-    "jsx": "react"
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es5",
+      "scripthost",
+      "dom"
+    ]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules/**/*"]
