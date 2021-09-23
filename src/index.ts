@@ -11,5 +11,5 @@ export const useBlobity = (options: Partial<Options>) => {
         }
     }, []);
 
-    return instance.current;
+    return instance;
 };
