@@ -181,6 +181,12 @@ export default class Blobity {
         }
 
         if (this.options.dotColor) {
+            if (this.globalStyles) {
+                document.head.removeChild(this.globalStyles);
+
+                this.globalStyles = undefined;
+            }
+
             if (!this.globalStyles) {
                 const dot = `<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill-rule="evenodd" fill="${this.options.dotColor}"/></svg>`;
 
