@@ -162,7 +162,10 @@ export default class Blobity {
         document.addEventListener('mouseup', this.mouseUp);
 
         document.addEventListener('touchstart', this.disable);
-        document.addEventListener('mousedown', this.enable);
+        document.addEventListener('touchend', this.disable);
+        document.addEventListener('pointermove', this.enable, {
+            passive: true,
+        });
     }
 
     public updateOptions = (newOptions: Partial<Options>) => {
