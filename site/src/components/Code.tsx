@@ -36,10 +36,10 @@ export const InlineCode = styled.code`
     border-radius: 3px;
 `;
 
-export const htmlExample = `<script src="https://blobity.dev/bt.js?licenseKey=..."></script>
+export const htmlExample = `<script src="https://cdn.blobity.dev/by.js?licenseKey=..."></script>
 
 <!-- or create instance manually to provide custom options -->
-<script src="https://blobity.dev/bt.js"></script>
+<script src="https://cdn.blobity.dev/by.js"></script>
 <script>
     const blobity = new Blobity({
         licenseKey: '...'

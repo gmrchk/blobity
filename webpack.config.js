@@ -1,4 +1,4 @@
-const TerserPlugin = require('terser-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 
 const baseConfig = {
     mode: 'production',
@@ -24,12 +24,13 @@ const baseConfig = {
             }),
         ],
     },
-}
+};
 
 const config = Object.assign({}, baseConfig, {
     entry: {
         blobity: './src/entry.ts',
         'blobity.min': './src/entry.ts',
+        by: './src/entry.ts',
     },
     output: {
         path: __dirname + '/dist/',
@@ -37,7 +38,7 @@ const config = Object.assign({}, baseConfig, {
         libraryTarget: 'umd',
         filename: '[name].js',
     },
-})
+});
 const docsConfig = (mode) =>
     Object.assign({}, baseConfig, {
         entry: {
@@ -51,6 +52,6 @@ const docsConfig = (mode) =>
             filename: '[name].js',
         },
         devtool: mode === 'development' ? 'eval-cheap-source-map' : undefined,
-    })
+    });
 
-module.exports = (env, argv) => [config, docsConfig(argv.mode)]
+module.exports = (env, argv) => [config, docsConfig(argv.mode)];
