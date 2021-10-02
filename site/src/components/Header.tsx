@@ -11,8 +11,18 @@ const Wrapper = styled.header`
     top: 0;
     text-align: center;
     width: 100%;
-    padding: 20px;
+    padding: 12px 20px;
     z-index: 10;
+
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.4);
+
+    @media ${media.midUp} {
+        padding: 20px;
+        margin: 0 0 0 20px;
+        backdrop-filter: inherit;
+        background: transparent;
+    }
 
     ${Button} {
         margin: 0 auto;
