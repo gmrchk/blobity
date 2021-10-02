@@ -19,7 +19,6 @@ const Wrapper = styled.header`
 
     @media ${media.midUp} {
         padding: 20px;
-        margin: 0 0 0 20px;
         backdrop-filter: inherit;
         background: transparent;
     }
