@@ -55,8 +55,8 @@ export default () => {
             <Section hero>
                 <Title>Blobity</Title>
                 <Text>
-                    Cursor is the heart of any interaction with the web. <br />{' '}
-                    Why no take it to the next level? 🚀
+                    The cursor is the heart of any interaction with the web.
+                    <br /> Why not take it to the next level? 🚀
                 </Text>
                 <Button href="#">Get Blobity</Button>
                 <Button href="https://github.com/gmrchk/blobity" ghost>
