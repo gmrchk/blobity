@@ -29,7 +29,7 @@ const Wrapper = styled.section<{ isDisplayed: boolean }>`
 `;
 
 export const Thanks = () => {
-    const [isDisplayed, setIsDisplayed] = useState(true);
+    const [isDisplayed, setIsDisplayed] = useState(false);
 
     useEffect(() => {
         if (window.location.hash === '#thanks') {

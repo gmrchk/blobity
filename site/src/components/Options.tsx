@@ -1,6 +1,6 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Switch } from './Switch';
+import { Switch, TripleSwitch } from './Switch';
 import { media } from './Layout';
 import { initiaBlobityOptions } from '../pages/index';
 import Blobity from '../../../lib';
@@ -41,11 +41,12 @@ const Desc = styled.div`
 `;
 
 const Controls = styled.div`
-    display: block;
     color: #888;
     text-transform: uppercase;
     font-size: 10px;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
 
     @media ${media.midUp} {
         font-size: 12px;
@@ -200,6 +201,19 @@ export const Options: React.FC<{
         sizesInterval.current = undefined;
     };
 
+    const [currentMode, setCurrentMode] = useState<
+        'normal' | 'bouncy' | 'slow'
+    >('normal');
+    const togglePresetOption = (mode: 'normal' | 'bouncy' | 'slow') => {
+        const blobity = blobityInstance.current;
+
+        setCurrentMode(mode);
+        blobity &&
+            blobity.updateOptions({
+                mode,
+            });
+    };
+
     return (
         <Wrapper>
             <Option>
@@ -262,6 +276,16 @@ export const Options: React.FC<{
             >
                 <Desc>Fits all shapes as sizes</Desc>
                 <Controls>just hover over</Controls>
+            </Option>
+            <Option>
+                <Desc>Spring presets</Desc>
+                <Controls>
+                    {currentMode}
+                    <TripleSwitch
+                        onChange={togglePresetOption}
+                        options={['normal', 'bouncy', 'slow']}
+                    />
+                </Controls>
             </Option>
         </Wrapper>
     );
