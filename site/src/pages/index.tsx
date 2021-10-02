@@ -14,6 +14,7 @@ import { Price } from '../components/Price';
 import { BigText } from '../components/BigText';
 import { Dots } from '../components/Dots';
 import { Notice } from '../components/Notice';
+import { Thanks } from '../components/Thanks';
 import { Code, htmlExample, reactExample } from '../components/Code';
 
 export const initiaBlobityOptions = {
@@ -217,6 +218,7 @@ export default () => {
                 <Button href="#">Get Blobity</Button>
             </Section>
             <Footer />
+            <Thanks />
         </div>
     );
 };
