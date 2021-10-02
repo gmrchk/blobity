@@ -62,7 +62,7 @@ export default () => {
                 <Button href="https://gmrchk.gumroad.com/l/blobity">
                     Get Blobity
                 </Button>
-                <Button href="https://github.com/gmrchk/blobity" ghost>
+                <Button href="https://github.com/gmrchk/blobity#readme" ghost>
                     Documentation
                 </Button>
             </Section>
