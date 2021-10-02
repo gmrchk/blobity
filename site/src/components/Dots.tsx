@@ -59,7 +59,7 @@ export const Dots: React.FC<{ index: number }> = ({ index, children }) => {
     const isSSR = typeof window === 'undefined';
 
     return (
-        <Wrapper>
+        <Wrapper suppressHydrationWarning>
             {children}
             {!isSSR &&
                 [...Array(30)].map((x, i) => (
