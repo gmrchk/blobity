@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useBlobity } from '../../../lib';
 import './styles.css';
 import { Head } from '../components/Head';
@@ -39,6 +39,13 @@ export const initiaBlobityOptions = {
 
 export default () => {
     const blobityInstance = useBlobity(initiaBlobityOptions);
+
+    useEffect(() => {
+        if (blobityInstance.current) {
+            // @ts-ignore for debugging purposes or playing around
+            window.blobity = blobityInstance.current;
+        }
+    }, [blobityInstance]);
 
     return (
         <div>

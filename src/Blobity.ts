@@ -77,6 +77,9 @@ export default class Blobity {
     private currentOffsetX: number = 0;
     private currentOffsetY: number = 0;
 
+    private manuallySetFocusedElement: HTMLElement | null = null;
+    private manuallySetTooltipText: string | null = null;
+
     constructor(options: Partial<Options>) {
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
@@ -265,7 +268,7 @@ export default class Blobity {
         }
     };
 
-    private bounce() {
+    public bounce() {
         this.kinetInstance.set('scale', 97);
         this.kinetInstance._instances.scale.velocity = 3;
         this.kinetInstance.animate('scale', 100);
@@ -304,13 +307,39 @@ export default class Blobity {
         this.destroyed = true;
     };
 
-    private disable = () => {
+    public disable = () => {
         this.isActive = false;
         this.clear();
     };
 
-    private enable = () => {
+    public enable = () => {
         this.isActive = true;
+    };
+
+    public focusElement = (element: HTMLElement) => {
+        this.manuallySetFocusedElement = element;
+
+        this.highlightElement(element);
+    };
+
+    public showTooltip = (text: string) => {
+        this.manuallySetTooltipText = text;
+
+        this.displayTooltip(
+            text,
+            this.lastKnownCoordinates.x,
+            this.lastKnownCoordinates.y
+        );
+    };
+
+    public reset = () => {
+        this.manuallySetFocusedElement = null;
+        this.manuallySetTooltipText = null;
+
+        this.resetMorph(
+            this.lastKnownCoordinates.x - this.options.size / 2,
+            this.lastKnownCoordinates.y - this.options.size / 2
+        );
     };
 
     private focusableElementMouseEnter = (event: MouseEvent) => {
@@ -346,17 +375,23 @@ export default class Blobity {
                 if (this.options.magnetic && magnetic !== 'false') {
                     this.currentMagnetic = new Magnetic(element);
                     this.currentMagnetic.onTick = () => {
-                        const rect = element.getBoundingClientRect();
-                        const radius = element.getAttribute(
-                            'data-blobity-radius'
-                        );
-                        this.kinetInstance.animate('textOpacity', 0);
-                        this.morph(
-                            rect,
-                            radius != undefined
-                                ? parseInt(radius)
-                                : this.options.radius
-                        );
+                        if (
+                            !this.activeTooltip &&
+                            this.activeFocusedElement === element
+                        ) {
+                            const rect = element.getBoundingClientRect();
+                            const radius = element.getAttribute(
+                                'data-blobity-radius'
+                            );
+
+                            this.kinetInstance.animate('textOpacity', 0);
+                            this.morph(
+                                rect,
+                                radius != undefined
+                                    ? parseInt(radius)
+                                    : this.options.radius
+                            );
+                        }
                     };
                 }
             }
@@ -404,43 +439,60 @@ export default class Blobity {
         this.kinetInstance.animate('opacity', 0);
     };
 
+    private get activeTooltip() {
+        return this.manuallySetTooltipText || this.sticketToElementTooltip;
+    }
+
+    private get activeFocusedElement() {
+        return this.manuallySetFocusedElement || this.stickedToElement;
+    }
+
+    private highlightElement = (element: HTMLElement) => {
+        const rect = element.getBoundingClientRect();
+        const radius = element.getAttribute('data-blobity-radius');
+        this.kinetInstance.animate('textOpacity', 0);
+        this.morph(
+            rect,
+            radius != undefined ? parseInt(radius) : this.options.radius
+        );
+    };
+
+    private displayTooltip = (text: string, x: number, y: number) => {
+        this.ctx.font = `${this.options.fontWeight} ${this.options.fontSize}px ${this.options.font}`;
+        const measurement = this.ctx.measureText(text);
+        const actualHeight =
+            measurement.actualBoundingBoxAscent +
+            measurement.actualBoundingBoxDescent;
+        const padding = this.options.tooltipPadding * 2;
+
+        this.kinetInstance.animate('textOpacity', 100);
+        this.morph(
+            {
+                x: x + 12,
+                y: y + 12,
+                width: measurement.width + padding,
+                height: actualHeight + padding,
+            },
+            4
+        );
+    };
+
     private mouseMove = (event: MouseEvent) => {
         if (this.initialized) {
-            if (this.sticketToElementTooltip) {
-                this.ctx.font = `${this.options.fontWeight} ${this.options.fontSize}px ${this.options.font}`;
-                const measurement = this.ctx.measureText(
-                    this.sticketToElementTooltip
-                );
-                const actualHeight =
-                    measurement.actualBoundingBoxAscent +
-                    measurement.actualBoundingBoxDescent;
-                const padding = this.options.tooltipPadding * 2;
+            this.lastKnownCoordinates = {
+                x: event.clientX,
+                y: event.clientY,
+            };
 
-                this.kinetInstance.animate('textOpacity', 100);
-                this.morph(
-                    {
-                        x: event.clientX + 12,
-                        y: event.clientY + 12,
-                        width: measurement.width + padding,
-                        height: actualHeight + padding,
-                    },
-                    4
+            if (this.activeTooltip) {
+                this.displayTooltip(
+                    this.activeTooltip,
+                    event.clientX,
+                    event.clientY
                 );
-            } else if (this.stickedToElement) {
-                const rect = this.stickedToElement.getBoundingClientRect();
-                const radius = this.stickedToElement.getAttribute(
-                    'data-blobity-radius'
-                );
-                this.kinetInstance.animate('textOpacity', 0);
-                this.morph(
-                    rect,
-                    radius != undefined ? parseInt(radius) : this.options.radius
-                );
+            } else if (this.activeFocusedElement) {
+                this.highlightElement(this.activeFocusedElement);
             } else {
-                this.lastKnownCoordinates = {
-                    x: event.clientX,
-                    y: event.clientY,
-                };
                 this.kinetInstance.animate('textOpacity', 0);
                 this.kinetInstance.animate(
                     'x',
@@ -602,7 +654,7 @@ export default class Blobity {
 
             ctx.fill();
 
-            if (this.sticketToElementTooltip) {
+            if (this.activeTooltip) {
                 this.ctx.textBaseline = 'middle';
                 this.ctx.textAlign = 'left';
                 this.ctx.font = `${this.options.fontWeight} ${
@@ -612,7 +664,7 @@ export default class Blobity {
                 ${this.fontColor.r}, ${this.fontColor.g}, 
                 ${this.fontColor.b}, ${textOpacity / 100})`;
                 ctx.fillText(
-                    this.sticketToElementTooltip,
+                    this.activeTooltip,
                     5 * window.devicePixelRatio +
                         this.options.tooltipPadding * window.devicePixelRatio,
                     (this.options.fontSize / 2) * window.devicePixelRatio +
