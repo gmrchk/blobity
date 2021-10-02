@@ -59,7 +59,9 @@ export default () => {
                     The cursor is the heart of any interaction with the web.
                     <br /> Why not take it to the next level? 🚀
                 </Text>
-                <Button href="#">Get Blobity</Button>
+                <Button href="https://gmrchk.gumroad.com/l/blobity">
+                    Get Blobity
+                </Button>
                 <Button href="https://github.com/gmrchk/blobity" ghost>
                     Documentation
                 </Button>
@@ -77,7 +79,7 @@ export default () => {
                             </Link>
                             . If you miss one, go ahead and submit a request for
                             new one through{' '}
-                            <Link href="https://github.com/gmrchk/blobity">
+                            <Link href="https://github.com/gmrchk/blobity/issues/new">
                                 GitHub issues
                             </Link>{' '}
                             or via{' '}
@@ -215,7 +217,9 @@ export default () => {
             </Section>
             <Section id="buy" center last>
                 <Headline>Ready to get started?</Headline>
-                <Button href="#">Get Blobity</Button>
+                <Button href="https://gmrchk.gumroad.com/l/blobity">
+                    Get Blobity
+                </Button>
             </Section>
             <Footer />
             <Thanks />
