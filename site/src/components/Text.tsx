@@ -18,7 +18,7 @@ export const SubHeadline = styled.h2`
     padding: 0 20px 0 0;
 
     @media ${media.midUp} {
-        font-size: 16px;
+        font-size: 24px;
     }
 `;
 
