@@ -13,6 +13,8 @@ html, body {
 body {
     background: linear-gradient(90deg, #040404 20px, transparent 1%) center, linear-gradient(#040404 20px, transparent 1%) center, #333;
     background-size: 21px 21px;
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 * {
