@@ -613,9 +613,12 @@ export default class Blobity {
             }
 
             const cumulativeVelocity = activateBlur
-                ? Math.sqrt(
-                      Math.pow(Math.abs(velocityX), 2) +
-                          Math.pow(Math.abs(velocityY), 2)
+                ? Math.min(
+                      Math.sqrt(
+                          Math.pow(Math.abs(velocityX), 2) +
+                              Math.pow(Math.abs(velocityY), 2)
+                      ) * 2, // so the distortion starts sooner
+                      60 // shape becomes too distorted once velocity is too big
                   ) / 2
                 : 0;
 
