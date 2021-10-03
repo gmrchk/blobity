@@ -313,7 +313,7 @@ export default class Blobity {
         this.destroyed = true;
     };
 
-    public disable = () => {
+    private disable = () => {
         // sometimes we can have false positive enable called right after
         // so we save the time here so we can prevent it in enable method
         this.disableTimeStamp = new Date().getTime();
@@ -322,7 +322,7 @@ export default class Blobity {
         this.clear();
     };
 
-    public enable = () => {
+    private enable = () => {
         const disableAge = new Date().getTime() - this.disableTimeStamp;
 
         if (disableAge > 16) {
