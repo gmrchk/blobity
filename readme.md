@@ -26,7 +26,7 @@ The third and most flexible option is to install with package managers like **np
 ```shell
 npm install blobity --save
 # or 
-npm add blobity
+yarn add blobity
 ```
 
 Once the package is installed as a node module (eg. inside of `node_modules` folder), you can access it via from `blobity` path.
