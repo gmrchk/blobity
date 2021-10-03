@@ -80,6 +80,8 @@ export default class Blobity {
     private manuallySetFocusedElement: HTMLElement | null = null;
     private manuallySetTooltipText: string | null = null;
 
+    private disableTimeStamp: number = new Date().getTime();
+
     constructor(options: Partial<Options>) {
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
@@ -163,7 +165,7 @@ export default class Blobity {
 
         document.addEventListener('touchstart', this.disable);
         document.addEventListener('touchend', this.disable);
-        document.addEventListener('pointermove', this.enable, {
+        document.addEventListener('mousemove', this.enable, {
             passive: true,
         });
     }
@@ -311,12 +313,21 @@ export default class Blobity {
     };
 
     public disable = () => {
+        // sometimes we can have false positive enable called right after
+        // so we save the time here so we can prevent it in enable method
+        this.disableTimeStamp = new Date().getTime();
+
         this.isActive = false;
         this.clear();
     };
 
     public enable = () => {
-        this.isActive = true;
+        const disableAge = new Date().getTime() - this.disableTimeStamp;
+
+        if (disableAge > 16) {
+            // let's take one cca frame as a limit
+            this.isActive = true;
+        }
     };
 
     public focusElement = (element: HTMLElement) => {
