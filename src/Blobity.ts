@@ -300,7 +300,8 @@ export default class Blobity {
         );
 
         document.removeEventListener('touchstart', this.disable);
-        document.removeEventListener('mousedown', this.enable);
+        document.removeEventListener('touchend', this.disable);
+        document.removeEventListener('mousemove', this.enable);
 
         document.body.removeChild(this.canvas);
         document.documentElement.style.cursor = '';
