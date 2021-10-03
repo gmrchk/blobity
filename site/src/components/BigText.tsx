@@ -23,7 +23,11 @@ const Wrapper = styled.div`
         font-size: 20%;
         display: inline-block;
         bottom: 20px;
-        right: -60px;
+        right: -40px;
+
+        @media ${media.midUp} {
+            right: -60px;
+        }
     }
 `;
 

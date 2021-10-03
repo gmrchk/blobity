@@ -53,6 +53,8 @@ const Inner = styled.div<{
 
 const Wrapper = styled.section`
     display: block;
+    overflow-x: hidden;
+    max-width: 100%;
 `;
 
 export const Section: React.FC<Props> = ({
