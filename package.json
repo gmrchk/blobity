@@ -11,6 +11,7 @@
     "build:site": "npm run build --prefix site",
     "build": "npm run build:cleanup && npm run build:lib && npm run build:site && npm run build:dist",
     "postinstall": "npm install --prefix site",
+    "prepare": "npm run build:lib",
     "watch:site": "npm run develop --prefix site",
     "watch:lib": "tsc --watch",
     "watch": "webpack-cli --watch --mode=development",
