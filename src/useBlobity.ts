@@ -1,7 +1,7 @@
 import Blobity, { Options } from './Blobity';
 import { useEffect, useRef } from 'react';
 
-export const useBlobity = (options: Partial<Options>) => {
+export default (options: Partial<Options>) => {
     const instance = useRef<Blobity | null>(null);
 
     useEffect(() => {
