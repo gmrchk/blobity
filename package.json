@@ -17,7 +17,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Georgy Marchuk",
-  "license": "",
+  "license": "See LICENSE.md",
   "repository": {
     "type": "git",
     "url": "https://github.com/gmrchk/blobity.git"
