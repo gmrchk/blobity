@@ -588,10 +588,12 @@ export default class Blobity {
     ) {
         this.clear();
 
+        const maxDelta = (this.options.size / 8) * 7;
+
         x = x * window.devicePixelRatio;
         y = y * window.devicePixelRatio;
-        width = width * window.devicePixelRatio;
-        height = height * window.devicePixelRatio;
+        width = Math.max(width, maxDelta) * window.devicePixelRatio;
+        height = Math.max(height, maxDelta) * window.devicePixelRatio;
         radius = radius * window.devicePixelRatio;
         velocityX = velocityX * window.devicePixelRatio;
         velocityY = velocityY * window.devicePixelRatio;
