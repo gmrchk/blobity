@@ -20,7 +20,7 @@ const baseConfig = {
             new TerserPlugin({
                 parallel: true,
                 extractComments: false,
-                include: /\.min\.js$/,
+                include: /(min|by)\.js$/,
             }),
         ],
     },
@@ -39,19 +39,5 @@ const config = Object.assign({}, baseConfig, {
         filename: '[name].js',
     },
 });
-const docsConfig = (mode) =>
-    Object.assign({}, baseConfig, {
-        entry: {
-            blobity: './src/entry.ts',
-            'blobity.min': './src/entry.ts',
-        },
-        output: {
-            path: __dirname + '/site/public',
-            library: 'Blobity',
-            libraryTarget: 'umd',
-            filename: '[name].js',
-        },
-        devtool: mode === 'development' ? 'eval-cheap-source-map' : undefined,
-    });
 
-module.exports = (env, argv) => [config, docsConfig(argv.mode)];
+module.exports = (env, argv) => config;
