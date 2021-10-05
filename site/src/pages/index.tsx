@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useBlobity } from '../../../lib';
+import useBlobity from '../../../lib/useBlobity';
 import './styles.css';
 import { Head } from '../components/Head';
 import { Header } from '../components/Header';
