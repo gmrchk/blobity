@@ -6,7 +6,7 @@ import { Button } from '../components/Button';
 import { Section } from '../components/Section';
 import { InlineCode } from '../components/Code';
 import { Head } from '../components/Head';
-import { useBlobity } from '../../../lib/useBlobity';
+import useBlobity from '../../../lib/useBlobity';
 import { initiaBlobityOptions } from './index';
 
 const NotFoundPage = () => {
