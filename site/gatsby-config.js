@@ -6,10 +6,18 @@ module.exports = {
         'gatsby-plugin-react-helmet',
         'gatsby-plugin-styled-components',
         {
+            resolve: 'gatsby-plugin-google-tagmanager',
+            options: {
+                id: 'G-91DWBNMP88',
+                includeInDevelopment: true,
+            },
+        },
+        {
             resolve: `gatsby-plugin-google-analytics`,
             options: {
-                // The property ID; the tracking code won't be generated without it
                 trackingId: 'G-91DWBNMP88',
+                head: true,
+                enableWebVitalsTracking: true,
             },
         },
     ],
