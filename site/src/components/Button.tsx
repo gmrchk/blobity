@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { media } from './Layout';
 import { Link as GatsbyLink } from 'gatsby';
 
-export const Button = styled.a<{ ghost?: boolean }>`
+export const Button = styled.a<{ ghost?: boolean; tiny?: boolean }>`
     display: inline-block;
     background: none;
     appearance: none;
@@ -24,11 +24,13 @@ export const Button = styled.a<{ ghost?: boolean }>`
     ${({ ghost }) => (ghost ? 'background: transparent;' : '')}
     ${({ ghost }) => (ghost ? 'border: 2px solid #ddd;' : '')}
     ${({ ghost }) => (ghost ? 'padding: 12px 14px;' : '')}
+    ${({ tiny }) => (tiny ? 'padding: 6px 8px;' : '')}
     color: #fff;
     border-radius: 4px;
     margin-top: 20px;
     z-index: 3;
     letter-spacing: 1px;
+    ${({ tiny }) => (tiny ? 'margin-top: 0;' : '')}
 
     & + & {
         margin-left: 20px;
@@ -42,6 +44,9 @@ export const Button = styled.a<{ ghost?: boolean }>`
         font-size: 14px;
         padding: 20px;
         ${({ ghost }) => (ghost ? 'padding: 18px 20px;' : '')}
+        ${({ tiny }) => (tiny ? 'font-size: 12px;' : '')}
+        ${({ tiny }) => (tiny ? 'padding: 6px 8px;' : '')}
+        ${({ tiny }) => (tiny ? 'margin-top: 0;' : '')}
     }
 `;
 

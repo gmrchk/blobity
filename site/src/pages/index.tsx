@@ -14,6 +14,7 @@ import { Price } from '../components/Price';
 import { BigText } from '../components/BigText';
 import { Dots } from '../components/Dots';
 import { Notice } from '../components/Notice';
+import { Controls } from '../components/Controls';
 import { Thanks } from '../components/Thanks';
 import { Code, htmlExample, reactExample } from '../components/Code';
 
@@ -71,22 +72,17 @@ export default () => {
                     <Half>
                         <Headline>Customizable for every use case</Headline>
                         <Text>
+                            Yes, we're talking about the playful cursor blobbing
+                            around.
+                        </Text>
+                        <Text>
                             Every website is different and so, Blobity has a
-                            wide list of option to customize its behaviour. You
-                            can find the full list of option in{' '}
+                            wide list of options to customize its look and
+                            behaviour. You can find the full list of options in{' '}
                             <Link href="https://github.com/gmrchk/blobity#readme">
                                 developer documentation
                             </Link>
-                            . If you miss one, go ahead and submit a request for
-                            new one through{' '}
-                            <Link href="https://github.com/gmrchk/blobity/issues/new">
-                                GitHub issues
-                            </Link>{' '}
-                            or via{' '}
-                            <Link href="mailto:support@gmrchk.com">
-                                support@gmrchk.com
-                            </Link>
-                            .
+                            , and adjust it to fit any design.
                         </Text>
                         <Button href="https://github.com/gmrchk/blobity#readme">
                             Developer documentation
@@ -94,6 +90,22 @@ export default () => {
                     </Half>
                     <Half>
                         <Options blobityInstance={blobityInstance} />
+                    </Half>
+                </Layout>
+            </Section>
+            <Section id="control">
+                <Layout reversed>
+                    <Half>
+                        <Headline>Full control</Headline>
+                        <Text>
+                            Like it wasn't enough, Blobity has an API to control
+                            what it does programmatically. This way you can make
+                            sure the connection between your application and
+                            Blobity feels seamless.
+                        </Text>
+                    </Half>
+                    <Half>
+                        <Controls blobityInstance={blobityInstance} />
                     </Half>
                 </Layout>
             </Section>
@@ -117,11 +129,12 @@ export default () => {
                             techniques under the hood, including making use of{' '}
                             <strong>HTML5 canvas</strong> for all it's
                             rendering, or scheduling frames through{' '}
-                            <strong>requestAnimationFrame</strong>.
+                            <strong>requestAnimationFrame</strong> to keep the
+                            smooth animations at all possible times.
                         </Text>
                         <Text>
-                            Fair to say, it should never get in the way of any
-                            of your own code on the main thread.
+                            The fact that it's a less than 7 Kb in a standalone
+                            (read bigger) version is just a cherry on top.
                         </Text>
                     </Half>
                     <Half>
@@ -140,15 +153,8 @@ export default () => {
                         <Text>
                             The pricing is simple - license is purchased per
                             project. One license can be used for one website /
-                            application, regardless of the size, purpose or the
+                            application, regardless of the size, purpose, or the
                             team working on the project.
-                        </Text>
-                        <Text>
-                            You are granted a license to use the SOFTWARE as
-                            part of one application, so long as that application
-                            is owned and operated by you, the LICENSEE, or is
-                            owned and operated by clients of LICENSEE. Anyone
-                            can purchase unlimited number of licenses.
                         </Text>
                         <Text>
                             <Link href="https://github.com/sponsors/gmrchk">
@@ -178,13 +184,29 @@ export default () => {
                     for the entire lifetime of your project. No time limitations
                     or ongoing costs.
                 </Text>
+                <SubHeadline>
+                    Can I use it for developing commercial projects?
+                </SubHeadline>
+                <Text>
+                    You are granted a license to use the SOFTWARE as part of one
+                    application, so long as that application is owned and
+                    operated by you, the LICENSEE, or is owned and operated by
+                    clients of LICENSEE.
+                </Text>
+                <SubHeadline>
+                    Can I use Blobity on multiple projects?
+                </SubHeadline>
+                <Text>
+                    Anyone can purchase unlimited number of licenses, but one
+                    license is always for one project and is not transferable.
+                </Text>
                 <SubHeadline>Can I get a refund?</SubHeadline>
                 <Text>
                     Blobity is published publicly to npm registry, and to GitHub
                     including its source code, so there is plenty opportunity to
                     try anything there is to try before purchasing your license.
-                    If you still feel unsatisfied after the purchase, hit me up
-                    at{' '}
+                    If you still feel unsatisfied after the purchase, it's
+                    possible in the 14 days from your purchase{' '}
                     <Link href="mailto:support@gmrchk.com">
                         support@gmrchk.com
                     </Link>
@@ -208,7 +230,7 @@ export default () => {
                     However, the software comes as is at the time of your
                     purchase, and no future developments are guaranteed. If you
                     want to make specific per-case requests or are looking for
-                    personal support, contact me at{' '}
+                    personal support, let's talk through{' '}
                     <Link href="mailto:support@gmrchk.com">
                         support@gmrchk.com
                     </Link>

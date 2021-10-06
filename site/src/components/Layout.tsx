@@ -22,6 +22,7 @@ const Wrapper = styled.div<Props>`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
 
     ${Half} {
