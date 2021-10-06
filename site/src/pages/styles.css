@@ -17,6 +17,10 @@ body {
     max-width: 100%;
 }
 
+::selection {
+    background: rgba(208, 26, 124, .4);
+}
+
 * {
     box-sizing: border-box;
 }
