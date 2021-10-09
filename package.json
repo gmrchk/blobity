@@ -2,7 +2,7 @@
   "name": "blobity",
   "version": "0.1.1",
   "description": "Fun blob cursor for any website",
-  "main": "index.js",
+  "main": "/lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build:cleanup": "rm -rf lib && rm -rf dist && rm -rf site/public/blobity.js",
