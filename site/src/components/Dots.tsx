@@ -47,7 +47,7 @@ const Dot = styled.div<{
     border-radius: 50%;
     background: linear-gradient(
         to bottom right,
-        rgba(208, 26, 124, 1),
+        rgb(208, 26, 124),
         rgba(41, 40, 240, 1)
     );
     z-index: 4;

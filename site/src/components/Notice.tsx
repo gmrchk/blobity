@@ -38,7 +38,7 @@ const Wrapper = styled.div`
 export const Notice: React.FC = ({}) => {
     return (
         <Wrapper>
-            <img src={danger} />
+            <img alt="warning" src={danger} />
             <Text>
                 Note that Blobity is a library focused on improving experience
                 browsing the site with a cursor based navigation (eg. mouse).

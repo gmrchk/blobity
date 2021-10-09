@@ -225,7 +225,11 @@ export const Options: React.FC<{
             <Option>
                 <Desc>Magnetic elements</Desc>
                 <Controls>
-                    <Switch initial={true} onChange={toggleMagneticOption} />
+                    <Switch
+                        aria-label="Magnetic option switch"
+                        initial={true}
+                        onChange={toggleMagneticOption}
+                    />
                 </Controls>
             </Option>
             <Option
@@ -288,6 +292,7 @@ export const Options: React.FC<{
                 <Controls>
                     {currentMode}
                     <TripleSwitch
+                        aria-label="Spring preset option switch"
                         onChange={togglePresetOption}
                         options={['normal', 'bouncy', 'slow']}
                     />

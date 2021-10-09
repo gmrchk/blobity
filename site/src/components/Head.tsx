@@ -5,23 +5,22 @@ import og from '../images/og.png';
 
 export const Head: React.FC<{ title: string }> = ({ title }) => {
     return (
-        <Helmet>
+        <Helmet
+            htmlAttributes={{
+                lang: 'en',
+            }}
+        >
             <meta charSet="utf-8" />
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1"
+            />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
             <title>{title}</title>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" />
             <link rel="shortcut icon" href={fav} />
-            <link rel="shortcut icon" href={fav} />
-
-            <link
-                href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap"
-                rel="stylesheet"
-            />
-
-            <link
-                href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
-                rel="stylesheet"
-            />
 
             <meta property="og:title" content={title} />
             <meta property="og:url" content="https://blobity.dev/" />
