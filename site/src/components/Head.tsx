@@ -35,11 +35,18 @@ export const Head: React.FC<{ title: string }> = ({ title }) => {
                 name="description"
                 content="The cursor is the heart of any interaction with the web. Why not take it to the next level? 🚀"
             />
-            <script type="application/ld+json">{`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('config', 'G-91DWBNMP88');
-          `}</script>
+
+            <script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-91DWBNMP88"
+            />
+            <script>{`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+
+                        gtag('config', 'G-91DWBNMP88');
+                `}</script>
         </Helmet>
     );
 };
