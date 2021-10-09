@@ -9,16 +9,17 @@ export const Head: React.FC<{ title: string }> = ({ title }) => {
             <meta charSet="utf-8" />
             <title>{title}</title>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
             <link rel="shortcut icon" href={fav} />
             <link rel="shortcut icon" href={fav} />
-            <link
-                rel="preconnect"
-                href="https://fonts.gstatic.com"
-                // @ts-ignore copied from Google Fonts 🤷‍
-                crossOrigin
-            />
+
             <link
                 href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap"
+                rel="stylesheet"
+            />
+
+            <link
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
                 rel="stylesheet"
             />
 

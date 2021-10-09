@@ -13,6 +13,8 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    font-family: 'Montserrat', 'Inter', 'Source Sans Pro', -apple-system,
+        BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
 
     @media ${media.midUp} {
         font-size: 180px;

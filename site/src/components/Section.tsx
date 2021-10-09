@@ -53,7 +53,7 @@ const Inner = styled.div<{
 
 const Wrapper = styled.section`
     display: block;
-    overflow-x: hidden;
+    overflow: hidden;
     max-width: 100%;
 `;
 

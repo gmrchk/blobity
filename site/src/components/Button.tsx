@@ -7,7 +7,7 @@ export const Button = styled.a<{ ghost?: boolean; tiny?: boolean }>`
     display: inline-block;
     background: none;
     appearance: none;
-    font-weight: 700;
+    font-weight: 900;
     max-width: 100%;
     font-size: 12px;
     padding: 14px;
@@ -29,7 +29,7 @@ export const Button = styled.a<{ ghost?: boolean; tiny?: boolean }>`
     border-radius: 4px;
     margin-top: 20px;
     z-index: 3;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     ${({ tiny }) => (tiny ? 'margin-top: 0;' : '')}
 
     & + & {
