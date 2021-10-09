@@ -2,14 +2,14 @@
 "Provider" means Georgy Marchuk, author of this software.   
 “Application” means any software, application, or elements that Your Licensed Developers develop using the Software or Modifications in accordance with this Agreement.  
 “End User” means an end user of Your Application who acquires a license to such solely for their own use and not for distribution, resale, user interface design, or software development purposes.  
-“Licensed Project” shall mean an individual project online project, usually with single domain name, that is permitted to use the Software and make Modifications for your Applications, whether such person is Your employee or a consultant or contractor providing services to You.  
+“Licensed Project” shall mean an individual project, usually with single domain name and single purpose, for which you are permitted to use the Software and make Modifications for your Applications.  
 “Modification” means any revision, adaptation, or derivative of the Software produced by You.  
 The “Software” means Blobity.  
 
 ## 2. Commercial license grant
 Subject to the terms of this Agreement, Provider grants to You a revocable, non-exclusive, non-transferable license: (i) for one (1) Licensed Project to use the Software to create Modifications and Applications; (ii) for You to distribute the Software and/or Modifications to an unlimited number of End Users solely as integrated into the Applications; and (iii) for End Users to use the Software as incorporated into Your Applications in accordance with the terms of this Agreement.
 
-This license grants you one individual Developer to use Blobity for an unlimited amount of Applications. It is not exclusive — others companies and developers can use Blobity — and is non-transferable — you cannot transfer this license to another person, company or project.
+This license grants you to use Blobity for one Application, regardless of the size of the team working on the Application. It is not exclusive — others companies and developers can use Blobity — and is non-transferable — you cannot transfer this license to another person, company or project.
 
 You are entitled to receive all updates to the major version of the Software licensed by you, as well as any later version of the Software that Provider, in writing, explicitly authorizes you to use. Provider makes no representation that any update will be compatible with your Application.
 
@@ -55,12 +55,12 @@ Upon termination of this Agreement, You must cease all use of the Software. If, 
 After termination, your end users may continue to use Blobity in products that have already been distributed to them.
 
 ## 6. Disclaimer of Warranties
-TO THE EXTENT PERMITTED BY LAW, Provider DISCLAIMS ALL WARRANTIES AND CONDITIONS, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT, WITH REGARD TO THE SOFTWARE. WE DO NOT GUARANTEE THAT THE OPERATION OF THE SOFTWARE OR YOUR APPLICATION WILL BE UNINTERRUPTED OR ERROR-FREE, AND YOU ACKNOWLEDGE THAT IT IS NOT TECHNICALLY PRACTICABLE FOR US TO DO SO.
+TO THE EXTENT PERMITTED BY LAW, PROVIDER DISCLAIMS ALL WARRANTIES AND CONDITIONS, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT, WITH REGARD TO THE SOFTWARE. WE DO NOT GUARANTEE THAT THE OPERATION OF THE SOFTWARE OR YOUR APPLICATION WILL BE UNINTERRUPTED OR ERROR-FREE, AND YOU ACKNOWLEDGE THAT IT IS NOT TECHNICALLY PRACTICABLE FOR US TO DO SO.
 
 We do not claim any warranties or guarantees with using Blobity. There may be bugs, and they might not be fixed at all if Provider does not consider it critical.  
 
 ## 7. Limitation of Liabilities
-TO THE EXTENT PERMITTED BY LAW, IN NO EVENT SHALL Provider BE LIABLE UNDER ANY LEGAL OR EQUITABLE THEORY FOR ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR ANY OTHER PECUNIARY LAW) ARISING OUT OF THE USE OF OR INABILITY TO USE THE SOFTWARE OR THE CODE IT PRODUCES OR ANY OTHER SUBJECT MATTER RELATING TO THIS AGREEMENT, EVEN IF Provider HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. IN ANY CASE, Provider’s ENTIRE LIABILITY WITH RESPECT TO ANY SUBJECT MATTER RELATING TO THIS AGREEMENT SHALL BE LIMITED TO THE GREATER OF: (I) THE AMOUNT ACTUALLY PAID BY YOU FOR THE LICENSE, OR (II) FIVE HUNDRED DOLLARS ($500).
+TO THE EXTENT PERMITTED BY LAW, IN NO EVENT SHALL Provider BE LIABLE UNDER ANY LEGAL OR EQUITABLE THEORY FOR ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR ANY OTHER PECUNIARY LAW) ARISING OUT OF THE USE OF OR INABILITY TO USE THE SOFTWARE OR THE CODE IT PRODUCES OR ANY OTHER SUBJECT MATTER RELATING TO THIS AGREEMENT, EVEN IF Provider HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. IN ANY CASE, Provider’s ENTIRE LIABILITY WITH RESPECT TO ANY SUBJECT MATTER RELATING TO THIS AGREEMENT SHALL BE LIMITED TO THE GREATER OF THE AMOUNT ACTUALLY PAID BY YOU FOR THE LICENSE.
 
 We aren’t liable if your business is harmed or you lose money as result of using Blobity.
 
@@ -69,7 +69,9 @@ While redistributing the Software or Modifications thereof as part of Your Appli
 
 While distributing Blobity to your end users, you can offer them support for Blobity, but only on your own behalf. That is your responsibility and not ours.
 
-You agree to indemnify, hold harmless, and defend Provider and its owners, officers, agents, and affiliates from and against any and all claims, lawsuits and proceedings (collectively “Claims”), and all expenses, costs (including attorney's fees), judgments, damages and other liabilities resulting from such Claims, that arise or result from: (i) Your use of the Software in violation of this Agreement; (ii) the use or distribution of Your Application, except to the extent such claim is based solely on the inclusion of the Software therein; (iii) Your Modification of the Software’s source code; or (iv) Your accepting support, warranty, indemnity, or additional liability as described in Section 8.1.
+You agree to indemnify, hold harmless, and defend Provider and its owners, officers, agents, and affiliates from and against any and all claims, lawsuits and proceedings (collectively “Claims”), and all expenses, costs (including attorney's fees), judgments, damages and other liabilities resulting from such Claims, that arise or result from: (i) Your use of the Software in violation of this Agreement; (ii) the use or distribution of Your Application, except to the extent such claim is based solely on the inclusion of the Software therein; (iii) Your Modification of the Software’s source code; or (iv) Your accepting support, warranty, indemnity, or additional liability as described in 
+
+### Section 8.1.
 
 If someone sues Provider as a result of your use of Blobity, you are responsible for any resulting cost to Provider.
 

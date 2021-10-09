@@ -29,7 +29,7 @@ npm install blobity --save
 yarn add blobity
 ```
 
-Once the package is installed as a node module (eg. inside of `node_modules` folder), you can access it via from `blobity` path.
+Once the package is installed as a node module (eg. inside of `node_modules` folder), you can access it from `blobity` path.
 
 ```javascript
 import Blobity from 'blobity';
