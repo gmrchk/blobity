@@ -17,13 +17,13 @@ const Option = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0 auto 14px;
+    margin: 0 auto 16px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 3px;
-    padding: 4px 16px;
+    padding: 6px 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     //z-index: 1;
-    height: 42px;
+    height: 46px;
 `;
 
 const Desc = styled.div`
@@ -33,6 +33,7 @@ const Desc = styled.div`
     pointer-events: none;
     font-size: 14px;
     padding: 0 10px 0 0;
+    font-weight: 700;
 
     @media ${media.midUp} {
         font-size: 16px;
@@ -46,6 +47,7 @@ const Triggers = styled.div`
     white-space: nowrap;
     display: flex;
     align-items: center;
+    font-weight: 700;
 
     @media ${media.midUp} {
         font-size: 12px;

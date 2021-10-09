@@ -31,11 +31,11 @@ const Wrapper = styled.div<Props>`
         @media ${media.midUp} {
             padding-bottom: 0;
             &:nth-child(1) {
-                padding-right: 30px;
+                padding-right: 40px;
             }
 
             &:nth-child(2) {
-                padding-left: 30px;
+                padding-left: 40px;
             }
         }
     }
