@@ -4,8 +4,8 @@ webpack.config.js
 docs
 tsconfig.json
 .gitignore
-site/
-dist/
+site/*
+dist/*
 .nvmrc
 .prettierrc
 .github
