@@ -170,6 +170,9 @@ export default () => {
                             </Link>
                             .
                         </Text>
+                        <Button href="https://gmrchk.gumroad.com/l/blobity">
+                            Get Blobity
+                        </Button>
                     </Half>
                     <Half>
                         <Price>$24</Price>

@@ -29,8 +29,9 @@ export const Button = styled.a<{ ghost?: boolean; tiny?: boolean }>`
     border-radius: 4px;
     margin-top: 20px;
     z-index: 3;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     ${({ tiny }) => (tiny ? 'margin-top: 0;' : '')}
+    ${({ tiny }) => (tiny ? 'letter-spacing: 1px;' : '')}
 
     & + & {
         margin-left: 20px;

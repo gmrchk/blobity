@@ -47,8 +47,8 @@ const List = styled.ul`
     justify-content: space-between;
 `;
 
-const ListItem = styled.li`
-    display: inline-block;
+const ListItem = styled.li<{ noMobile?: boolean }>`
+    display: ${({ noMobile }) => (noMobile ? 'none' : 'inline-block')};
     margin: 0 0 0 20px;
     vertical-align: middle;
     height: 36px;
@@ -59,12 +59,12 @@ const ListItem = styled.li`
     }
 
     @media ${media.midUp} {
+        display: inline-block;
         margin: 0 0 0 20px;
     }
 
     &:last-child {
         margin: 0 0 0 20px;
-
         @media ${media.midUp} {
             margin: 0 0 0 40px;
         }
@@ -114,22 +114,22 @@ export const Header = () => {
             <Holder>
                 <div></div>
                 <List>
-                    <ListItem>
+                    <ListItem noMobile>
                         <Link onClick={scrollTo} href="/#customize">
                             Customize
                         </Link>
                     </ListItem>
-                    <ListItem>
+                    <ListItem noMobile>
                         <Link onClick={scrollTo} href="/#installation">
                             Installation
                         </Link>
                     </ListItem>
-                    <ListItem>
+                    <ListItem noMobile>
                         <Link onClick={scrollTo} href="/#pricing">
                             Pricing
                         </Link>
                     </ListItem>
-                    <ListItem>
+                    <ListItem noMobile>
                         <Link onClick={scrollTo} href="/#faq">
                             FAQ
                         </Link>

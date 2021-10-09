@@ -332,12 +332,14 @@ export default class Blobity {
     };
 
     public focusElement = (element: HTMLElement) => {
+        this.manuallySetTooltipText = null;
         this.manuallySetFocusedElement = element;
 
         this.highlightElement(element);
     };
 
     public showTooltip = (text: string) => {
+        this.manuallySetFocusedElement = null;
         this.manuallySetTooltipText = text;
 
         this.displayTooltip(

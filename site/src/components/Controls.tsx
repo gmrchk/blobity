@@ -130,8 +130,7 @@ export const Controls: React.FC<{
         <Wrapper>
             <Option>
                 <Desc>
-                    Draw attention
-                    <Shape ref={focusRef} />
+                    <div ref={focusRef}>Draw attention</div>
                 </Desc>
                 <Triggers>
                     <Button tiny ghost onClick={focus}>
@@ -140,7 +139,7 @@ export const Controls: React.FC<{
                 </Triggers>
             </Option>
             <Option>
-                <Desc>Clarification things</Desc>
+                <Desc>Clarify things</Desc>
                 <Triggers>
                     <Button tiny ghost onClick={tooltip}>
                         Show tooltip
@@ -148,7 +147,7 @@ export const Controls: React.FC<{
                 </Triggers>
             </Option>
             <Option>
-                <Desc>Reset applied controls</Desc>
+                <Desc>Reset all of the above</Desc>
                 <Triggers>
                     <Button tiny ghost onClick={reset}>
                         Reset controls
