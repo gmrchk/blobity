@@ -26,11 +26,11 @@ const Inner = styled.div<{
     margin: 0 auto;
     max-width: ${({ thin }) => (thin ? '840px' : '1480px')};
     text-align: ${({ center }) => (center ? 'center' : 'left')};
-    ${({ extraSpace }) => (extraSpace ? 'max-height: 74vh' : '')};
 
     @media ${media.midUp} {
         padding: 80px 20px;
         padding-top: ${({ extraSpace }) => (extraSpace ? '30vh' : '20vh')};
+        ${({ extraSpace }) => (extraSpace ? 'max-height: 74vh' : '')};
     }
 
     ${Text} {
