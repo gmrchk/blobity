@@ -13,7 +13,7 @@ module.exports = {
                 short_name: `Blobity`,
                 start_url: `/`,
                 background_color: `#040404`,
-                theme_color: `#D01A7C`,
+                theme_color: `#040404`,
                 display: `standalone`,
                 icon: `src/images/icon.png`,
             },
