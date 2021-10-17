@@ -119,17 +119,17 @@ export const Header = () => {
                             Customize
                         </Link>
                     </ListItem>
-                    <ListItem noMobile>
+                    <ListItem>
                         <Link onClick={scrollTo} href="/#installation">
                             Installation
                         </Link>
                     </ListItem>
-                    <ListItem noMobile>
+                    <ListItem>
                         <Link onClick={scrollTo} href="/#pricing">
                             Pricing
                         </Link>
                     </ListItem>
-                    <ListItem noMobile>
+                    <ListItem>
                         <Link onClick={scrollTo} href="/#faq">
                             FAQ
                         </Link>
