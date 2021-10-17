@@ -360,7 +360,7 @@ export default class Blobity {
     };
 
     private focusableElementMouseEnter = (event: MouseEvent) => {
-        if (event.target) {
+        if (this.isActive && event.target) {
             const element = (event.target as HTMLElement).closest(
                 this.options.focusableElements
             ) as HTMLElement;
