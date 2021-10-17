@@ -49,14 +49,6 @@ export default class Magnetic {
                 this.element.style.transform = '';
             }
         });
-
-        // this is so the transform takes effect, but we don't want to break any possible existing styling
-        if (
-            !element.style.hasOwnProperty('display') ||
-            element.style.display === ''
-        ) {
-            element.style.display = 'inline-block';
-        }
     }
 
     public destroy = () => {

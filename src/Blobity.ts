@@ -389,7 +389,10 @@ export default class Blobity {
                     : this.options.focusableElementsOffsetY;
 
                 const magnetic = element.getAttribute('data-blobity-magnetic');
-                if (this.options.magnetic && magnetic !== 'false') {
+                if (
+                    magnetic === 'true' ||
+                    (this.options.magnetic && magnetic !== 'false')
+                ) {
                     this.currentMagnetic = new Magnetic(element);
                     this.currentMagnetic.onTick = () => {
                         if (
