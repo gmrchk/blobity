@@ -15,6 +15,8 @@ You are entitled to receive all updates to the major version of the Software lic
 
 You can use this license with Blobity versions 1.x.x, as well as later versions if we authorize. Later versions of Blobity may not be compatible with your Application.
 
+Active GitHub Sponsors of a GitHub user with username gmrchk (in other words Provider) may use Blobity on unlimited number of projects, for as long as the sponsorship is active, without acquiring separate licenses.  
+
 ## 3. Ownership
 This is a license agreement and not an agreement for sale. Provider reserves ownership of all intellectual property rights inherent in or relating to the Software and corresponding source code, which include all copyright, patent rights, all rights in relation to registered and unregistered trademarks (including service marks), confidential information (including trade secrets and know-how) and all rights other than those expressly granted by this Agreement.
 
