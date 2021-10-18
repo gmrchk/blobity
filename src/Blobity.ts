@@ -47,7 +47,7 @@ export default class Blobity {
         fontWeight: 400,
         fontSize: 40,
         fontColor: '#000000',
-        tooltipPadding: 4,
+        tooltipPadding: 12,
     };
     private initialized: boolean = false;
     private color: Color | Color[] = { r: 0, g: 0, b: 0 };
@@ -387,14 +387,20 @@ export default class Blobity {
                             !this.activeTooltip &&
                             this.activeFocusedElement === element
                         ) {
-                            const rect = element.getBoundingClientRect();
+                            const { width, height, x, y } =
+                                element.getBoundingClientRect();
                             const radius = element.getAttribute(
                                 'data-blobity-radius'
                             );
 
                             this.kinetInstance.animate('textOpacity', 0);
                             this.morph(
-                                rect,
+                                {
+                                    width: width + this.currentOffsetX * 2,
+                                    height: height + this.currentOffsetY * 2,
+                                    x: x - this.currentOffsetX,
+                                    y: y - this.currentOffsetY,
+                                },
                                 radius != undefined
                                     ? parseInt(radius)
                                     : this.options.radius
@@ -456,30 +462,34 @@ export default class Blobity {
     }
 
     private highlightElement = (element: HTMLElement) => {
-        const rect = element.getBoundingClientRect();
+        const { width, height, x, y } = element.getBoundingClientRect();
         const radius = element.getAttribute('data-blobity-radius');
         this.kinetInstance.animate('textOpacity', 0);
         this.morph(
-            rect,
+            {
+                width: width + this.currentOffsetX * 2,
+                height: height + this.currentOffsetY * 2,
+                x: x - this.currentOffsetX,
+                y: y - this.currentOffsetY,
+            },
             radius != undefined ? parseInt(radius) : this.options.radius
         );
     };
 
     private displayTooltip = (text: string, x: number, y: number) => {
         this.ctx.font = `${this.options.fontWeight} ${this.options.fontSize}px ${this.options.font}`;
-        const measurement = this.ctx.measureText(text);
-        const actualHeight =
-            measurement.actualBoundingBoxAscent +
-            measurement.actualBoundingBoxDescent;
+        this.ctx.textBaseline = 'bottom';
+        this.ctx.textAlign = 'left';
+        const { actualBoundingBoxAscent, width } = this.ctx.measureText(text);
         const padding = this.options.tooltipPadding * 2;
 
         this.kinetInstance.animate('textOpacity', 100);
         this.morph(
             {
-                x: x + 12,
-                y: y + 12,
-                width: measurement.width + padding,
-                height: actualHeight + padding,
+                x: x + 6,
+                y: y + 6,
+                width: width + padding,
+                height: actualBoundingBoxAscent + padding,
             },
             4
         );
@@ -540,10 +550,10 @@ export default class Blobity {
             clearTimeout(this.disablingStickedToElementTimeout);
         }
         this.kinetInstance.animate('radius', radius);
-        this.kinetInstance.animate('width', width + this.currentOffsetX * 2);
-        this.kinetInstance.animate('height', height + this.currentOffsetY * 2);
-        this.kinetInstance.animate('x', x - this.currentOffsetX);
-        this.kinetInstance.animate('y', y - this.currentOffsetY);
+        this.kinetInstance.animate('width', width);
+        this.kinetInstance.animate('height', height);
+        this.kinetInstance.animate('x', x);
+        this.kinetInstance.animate('y', y);
     }
 
     private resetMorph = (x: number, y: number) => {
@@ -585,8 +595,12 @@ export default class Blobity {
 
         x = x * window.devicePixelRatio;
         y = y * window.devicePixelRatio;
-        width = Math.max(width, maxDelta) * window.devicePixelRatio;
-        height = Math.max(height, maxDelta) * window.devicePixelRatio;
+        width =
+            (this.activeTooltip ? width : Math.max(width, maxDelta)) *
+            window.devicePixelRatio;
+        height =
+            (this.activeTooltip ? height : Math.max(height, maxDelta)) *
+            window.devicePixelRatio;
         radius = radius * window.devicePixelRatio;
         velocityX = velocityX * window.devicePixelRatio;
         velocityY = velocityY * window.devicePixelRatio;
@@ -668,21 +682,20 @@ export default class Blobity {
             ctx.fill();
 
             if (this.activeTooltip) {
-                this.ctx.textBaseline = 'middle';
+                ctx.setTransform(scale / 100, 0, 0, scale / 100, x, y);
+
+                this.ctx.textBaseline = 'top';
                 this.ctx.textAlign = 'left';
                 this.ctx.font = `${this.options.fontWeight} ${
                     this.options.fontSize * window.devicePixelRatio
                 }px ${this.options.font}`;
                 ctx.fillStyle = `rgba(
-                ${this.fontColor.r}, ${this.fontColor.g}, 
-                ${this.fontColor.b}, ${textOpacity / 100})`;
+                    ${this.fontColor.r}, ${this.fontColor.g}, 
+                    ${this.fontColor.b}, ${textOpacity / 100})`;
                 ctx.fillText(
                     this.activeTooltip,
-                    5 * window.devicePixelRatio +
-                        this.options.tooltipPadding * window.devicePixelRatio,
-                    (this.options.fontSize / 2) * window.devicePixelRatio +
-                        7 * window.devicePixelRatio +
-                        this.options.tooltipPadding
+                    this.options.tooltipPadding * window.devicePixelRatio,
+                    this.options.tooltipPadding * window.devicePixelRatio
                 );
             }
         }
