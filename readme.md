@@ -1,4 +1,11 @@
-![Blobity](https://raw.githubusercontent.com/gmrchk/blobity/master/site/src/images/og.png?token=ACHH3VHVQD3Y6JTHWYL7LE3BLHVT2)
+![Blobity](https://user-images.githubusercontent.com/9338324/137811301-e098fa34-1720-4b1f-9ffd-dee0912b2f71.png)
+
+<p align="center">
+    <a href="https://www.npmjs.com/package/blobity"><img src="https://img.shields.io/npm/v/blobity.svg?color=brightgreen" alt="npm version"></a>
+    <img src="https://img.shields.io/bundlephobia/minzip/blobity.svg" alt="Gzip Size"> 
+    <a href="https://github.com/gmrchk/blobity/blob/master/LICENSE"><img src="https://img.shields.io/github/license/gmrchk/blobity.svg" alt="License"></a>
+    <a href="https://app.netlify.com/sites/nifty-tesla-5b3f95/deploys"><img src="https://api.netlify.com/api/v1/badges/7777ddcf-a486-4684-be57-59320956a0e3/deploy-status" alt="Netlify Status"></a>
+</p>
 
 ## Installation
 There are several options how to install Blobity to your site. 
