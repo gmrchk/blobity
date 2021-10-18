@@ -144,6 +144,15 @@ const blobity = new Blobity();
 blobity.reset();
 ```
 
+### bounce
+`bounce` will make the blob (or tooltip, or whatever form the Blobity currently has), bounce a little once.
+
+```javascript
+const blobity = new Blobity();
+
+blobity.bounce();
+```
+
 ## React
 Since Blobity is a global library for which the instances should be created once, there is a helper hook to make initialization of Blobity easier in React applications.
 This hook can be imported from the package version of Blobity. It accepts the same options as Blobity does, and returns a React ref of the instance.

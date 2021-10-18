@@ -136,6 +136,7 @@ export const Options: React.FC<{
                 invert: isActive,
                 fontColor: isActive ? '#000000' : '#ffffff',
             });
+        blobity && blobity.bounce();
     };
 
     const startSwitchingColors = () => {
@@ -143,6 +144,7 @@ export const Options: React.FC<{
         colorsInterval.current && clearInterval(colorsInterval.current);
         const updateWithRandomColors = () => {
             blobity && blobity.updateOptions(generateColorPair());
+            blobity && blobity.bounce();
         };
         colorsInterval.current = window.setInterval(
             updateWithRandomColors,
@@ -158,6 +160,7 @@ export const Options: React.FC<{
                 color: initiaBlobityOptions.color,
                 dotColor: initiaBlobityOptions.dotColor,
             });
+        blobity && blobity.bounce();
         colorsInterval.current && clearInterval(colorsInterval.current);
         colorsInterval.current = undefined;
     };
@@ -169,6 +172,7 @@ export const Options: React.FC<{
             blobity.updateOptions({
                 magnetic: isActive,
             });
+        blobity && blobity.bounce();
     };
 
     const startSwitchingSizeAndRadius = () => {
@@ -187,6 +191,7 @@ export const Options: React.FC<{
                     size: sizes[index % 3][0],
                     radius: sizes[index % 3][1],
                 });
+            blobity && blobity.bounce();
             index++;
         };
         sizesInterval.current = window.setInterval(
@@ -203,6 +208,7 @@ export const Options: React.FC<{
                 size: initiaBlobityOptions.size,
                 radius: initiaBlobityOptions.radius,
             });
+        blobity && blobity.bounce();
         sizesInterval.current && clearInterval(sizesInterval.current);
         sizesInterval.current = undefined;
     };
@@ -218,6 +224,7 @@ export const Options: React.FC<{
             blobity.updateOptions({
                 mode,
             });
+        blobity && blobity.bounce();
     };
 
     return (

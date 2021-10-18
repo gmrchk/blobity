@@ -268,8 +268,6 @@ export default class Blobity {
                     this.lastKnownCoordinates.y - this.options.size / 2
                 );
             }
-
-            this.bounce();
         }
     };
 

@@ -4,6 +4,7 @@ import { media } from './Layout';
 import { Button } from './Button';
 import Blobity from '../../../lib';
 import { generatePrettyColor } from '../utils/colorGenerator';
+import { initiaBlobityOptions } from '../pages';
 
 const Wrapper = styled.div`
     display: block;
@@ -103,6 +104,7 @@ export const Controls: React.FC<{
     blobityInstance: React.MutableRefObject<Blobity | null>;
 }> = ({ blobityInstance }) => {
     const focusRef = useRef<HTMLDivElement | null>(null);
+    const bouncingInterval = useRef<number>();
 
     const focus = () => {
         const blobity = blobityInstance.current;
@@ -124,6 +126,22 @@ export const Controls: React.FC<{
         if (focusRef.current) {
             blobity && blobity.reset();
         }
+    };
+
+    const startBouncing = () => {
+        const blobity = blobityInstance.current;
+        bouncingInterval.current && clearInterval(bouncingInterval.current);
+        const bounce = () => {
+            blobity && blobity.bounce();
+        };
+        bouncingInterval.current = window.setInterval(bounce, 800);
+        bounce();
+    };
+    const stopBouncing = () => {
+        const blobity = blobityInstance.current;
+
+        bouncingInterval.current && clearInterval(bouncingInterval.current);
+        bouncingInterval.current = undefined;
     };
 
     return (
@@ -153,6 +171,10 @@ export const Controls: React.FC<{
                         Reset controls
                     </Button>
                 </Triggers>
+            </Option>
+            <Option onMouseOver={startBouncing} onMouseLeave={stopBouncing}>
+                <Desc>Instant feedback</Desc>
+                <Triggers>Hover to bounce</Triggers>
             </Option>
         </Wrapper>
     );
