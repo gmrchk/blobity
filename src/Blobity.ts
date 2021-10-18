@@ -82,12 +82,12 @@ export default class Blobity {
 
     private disableTimeStamp: number = new Date().getTime();
 
-    constructor(options: Partial<Options>) {
+    constructor(options?: Partial<Options>) {
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
         this.ctx = this.canvas.getContext('2d')!;
 
-        this.updateOptions(options);
+        this.updateOptions({ ...options });
         if (!this.options.licenseKey) {
             console.warn(
                 'Valid license number for Blobity is required. You can get one at https://blobity.gmrchk.com.'
