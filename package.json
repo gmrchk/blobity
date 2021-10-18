@@ -11,6 +11,7 @@
     "build:dist": "webpack-cli",
     "build:site": "npm run build --prefix site",
     "build": "npm run build:cleanup && npm run build:lib && npm run build:site && npm run build:dist",
+    "build:ci": "npm i --prefix site && npm run build",
     "site:install": "npm install --prefix site",
     "prepare": "npm run build:lib",
     "watch:site": "npm run develop --prefix site",
