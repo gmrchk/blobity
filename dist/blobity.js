@@ -971,7 +971,7 @@ var Blobity = /** @class */ (function () {
             fontWeight: 400,
             fontSize: 40,
             fontColor: '#000000',
-            tooltipPadding: 4,
+            tooltipPadding: 12,
         };
         this.initialized = false;
         this.color = { r: 0, g: 0, b: 0 };
@@ -1034,9 +1034,10 @@ var Blobity = /** @class */ (function () {
                 }
                 _this.globalStyles = undefined;
             }
-            _this.canvas.style.cssText = "\n            position: fixed;\n            z-index: -1;\n            top: 0;\n            left: 0;\n            pointer-events: none;\n            opacity: 1;\n            width: 100%;\n            height: 100%;\n            will-change: transform;\n            overflow: visible;\n            opacity: " + _this.options.opacity + "; \n            z-index: " + (_this.options.invert ? 2147483647 : _this.options.zIndex) + "; \n            " + (_this.options.invert && 'mix-blend-mode: difference') + ";\n        ";
+            _this.canvas.style.cssText = "\n            position: fixed;\n            z-index: -1;\n            top: 0;\n            left: 0;\n            pointer-events: none;\n            opacity: 1;\n            will-change: transform;\n            overflow: visible;\n            opacity: " + _this.options.opacity + "; \n            z-index: " + (_this.options.invert ? 2147483647 : _this.options.zIndex) + "; \n            " + (_this.options.invert && 'mix-blend-mode: difference') + ";\n        ";
             _this.currentOffsetX = _this.options.focusableElementsOffsetX;
             _this.currentOffsetY = _this.options.focusableElementsOffsetY;
+            _this.resize();
             if (_this.kinetInstance) {
                 Object.entries(_this.kinetInstance._instances)
                     .filter(function (_a) {
@@ -1059,7 +1060,6 @@ var Blobity = /** @class */ (function () {
                     _this.kinetInstance.animate('x', _this.lastKnownCoordinates.x - _this.options.size / 2);
                     _this.kinetInstance.animate('y', _this.lastKnownCoordinates.y - _this.options.size / 2);
                 }
-                _this.bounce();
             }
         };
         this.destroy = function () {
@@ -1097,10 +1097,12 @@ var Blobity = /** @class */ (function () {
             }
         };
         this.focusElement = function (element) {
+            _this.manuallySetTooltipText = null;
             _this.manuallySetFocusedElement = element;
             _this.highlightElement(element);
         };
         this.showTooltip = function (text) {
+            _this.manuallySetFocusedElement = null;
             _this.manuallySetTooltipText = text;
             _this.displayTooltip(text, _this.lastKnownCoordinates.x, _this.lastKnownCoordinates.y);
         };
@@ -1110,7 +1112,7 @@ var Blobity = /** @class */ (function () {
             _this.resetMorph(_this.lastKnownCoordinates.x - _this.options.size / 2, _this.lastKnownCoordinates.y - _this.options.size / 2);
         };
         this.focusableElementMouseEnter = function (event) {
-            if (event.target) {
+            if (_this.isActive && event.target) {
                 var element_1 = event.target.closest(_this.options.focusableElements);
                 if (element_1) {
                     _this.stickedToElement = element_1;
@@ -1125,15 +1127,21 @@ var Blobity = /** @class */ (function () {
                         ? parseInt(String(element_1.getAttribute('data-blobity-offset-y')))
                         : _this.options.focusableElementsOffsetY;
                     var magnetic = element_1.getAttribute('data-blobity-magnetic');
-                    if (_this.options.magnetic && magnetic !== 'false') {
+                    if (magnetic === 'true' ||
+                        (_this.options.magnetic && magnetic !== 'false')) {
                         _this.currentMagnetic = new Magnetic_1.default(element_1);
                         _this.currentMagnetic.onTick = function () {
                             if (!_this.activeTooltip &&
                                 _this.activeFocusedElement === element_1) {
-                                var rect = element_1.getBoundingClientRect();
+                                var _a = element_1.getBoundingClientRect(), width = _a.width, height = _a.height, x = _a.x, y = _a.y;
                                 var radius = element_1.getAttribute('data-blobity-radius');
                                 _this.kinetInstance.animate('textOpacity', 0);
-                                _this.morph(rect, radius != undefined
+                                _this.morph({
+                                    width: width + _this.currentOffsetX * 2,
+                                    height: height + _this.currentOffsetY * 2,
+                                    x: x - _this.currentOffsetX,
+                                    y: y - _this.currentOffsetY,
+                                }, radius != undefined
                                     ? parseInt(radius)
                                     : _this.options.radius);
                             }
@@ -1173,23 +1181,28 @@ var Blobity = /** @class */ (function () {
             _this.kinetInstance.animate('opacity', 0);
         };
         this.highlightElement = function (element) {
-            var rect = element.getBoundingClientRect();
+            var _a = element.getBoundingClientRect(), width = _a.width, height = _a.height, x = _a.x, y = _a.y;
             var radius = element.getAttribute('data-blobity-radius');
             _this.kinetInstance.animate('textOpacity', 0);
-            _this.morph(rect, radius != undefined ? parseInt(radius) : _this.options.radius);
+            _this.morph({
+                width: width + _this.currentOffsetX * 2,
+                height: height + _this.currentOffsetY * 2,
+                x: x - _this.currentOffsetX,
+                y: y - _this.currentOffsetY,
+            }, radius != undefined ? parseInt(radius) : _this.options.radius);
         };
         this.displayTooltip = function (text, x, y) {
             _this.ctx.font = _this.options.fontWeight + " " + _this.options.fontSize + "px " + _this.options.font;
-            var measurement = _this.ctx.measureText(text);
-            var actualHeight = measurement.actualBoundingBoxAscent +
-                measurement.actualBoundingBoxDescent;
+            _this.ctx.textBaseline = 'bottom';
+            _this.ctx.textAlign = 'left';
+            var _a = _this.ctx.measureText(text), actualBoundingBoxAscent = _a.actualBoundingBoxAscent, width = _a.width;
             var padding = _this.options.tooltipPadding * 2;
             _this.kinetInstance.animate('textOpacity', 100);
             _this.morph({
-                x: x + 12,
-                y: y + 12,
-                width: measurement.width + padding,
-                height: actualHeight + padding,
+                x: x + 6,
+                y: y + 6,
+                width: width + padding,
+                height: actualBoundingBoxAscent + padding,
             }, 4);
         };
         this.mouseMove = function (event) {
@@ -1235,24 +1248,20 @@ var Blobity = /** @class */ (function () {
             _this.ctx.clearRect(-20, -20, window.innerWidth * window.devicePixelRatio + 20, window.innerHeight * window.devicePixelRatio + 20);
         };
         this.resize = function () {
-            _this.ctx.canvas.width = window.innerWidth * window.devicePixelRatio;
-            _this.ctx.canvas.height = window.innerHeight * window.devicePixelRatio;
             _this.ctx.canvas.style.width = window.innerWidth + "px";
             _this.ctx.canvas.style.height = window.innerHeight + "px";
+            _this.ctx.canvas.width = window.innerWidth * window.devicePixelRatio;
+            _this.ctx.canvas.height = window.innerHeight * window.devicePixelRatio;
+            if (window.devicePixelRatio > 1) {
+                _this.ctx.imageSmoothingEnabled = false;
+            }
         };
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
-        this.updateOptions(options);
+        this.ctx = this.canvas.getContext('2d');
+        this.updateOptions(__assign({}, options));
         if (!this.options.licenseKey) {
             console.warn('Valid license number for Blobity is required. You can get one at https://blobity.gmrchk.com.');
-        }
-        this.ctx = this.canvas.getContext('2d');
-        this.ctx.canvas.style.width = window.innerWidth + "px";
-        this.ctx.canvas.style.height = window.innerHeight + "px";
-        this.ctx.canvas.width = window.innerWidth * window.devicePixelRatio;
-        this.ctx.canvas.height = window.innerHeight * window.devicePixelRatio;
-        if (window.devicePixelRatio > 1) {
-            this.ctx.imageSmoothingEnabled = false;
         }
         this.kinetInstance = new kinet_1.default({
             names: [
@@ -1324,17 +1333,22 @@ var Blobity = /** @class */ (function () {
             clearTimeout(this.disablingStickedToElementTimeout);
         }
         this.kinetInstance.animate('radius', radius);
-        this.kinetInstance.animate('width', width + this.currentOffsetX * 2);
-        this.kinetInstance.animate('height', height + this.currentOffsetY * 2);
-        this.kinetInstance.animate('x', x - this.currentOffsetX);
-        this.kinetInstance.animate('y', y - this.currentOffsetY);
+        this.kinetInstance.animate('width', width);
+        this.kinetInstance.animate('height', height);
+        this.kinetInstance.animate('x', x);
+        this.kinetInstance.animate('y', y);
     };
     Blobity.prototype.render = function (x, y, width, height, radius, velocityX, velocityY, opacity, scale, textOpacity) {
         this.clear();
+        var maxDelta = (this.options.size / 8) * 7;
         x = x * window.devicePixelRatio;
         y = y * window.devicePixelRatio;
-        width = width * window.devicePixelRatio;
-        height = height * window.devicePixelRatio;
+        width =
+            (this.activeTooltip ? width : Math.max(width, maxDelta)) *
+                window.devicePixelRatio;
+        height =
+            (this.activeTooltip ? height : Math.max(height, maxDelta)) *
+                window.devicePixelRatio;
         radius = radius * window.devicePixelRatio;
         velocityX = velocityX * window.devicePixelRatio;
         velocityY = velocityY * window.devicePixelRatio;
@@ -1382,14 +1396,12 @@ var Blobity = /** @class */ (function () {
             }
             ctx.fill();
             if (this.activeTooltip) {
-                this.ctx.textBaseline = 'middle';
+                ctx.setTransform(scale / 100, 0, 0, scale / 100, x, y);
+                this.ctx.textBaseline = 'top';
                 this.ctx.textAlign = 'left';
                 this.ctx.font = this.options.fontWeight + " " + this.options.fontSize * window.devicePixelRatio + "px " + this.options.font;
-                ctx.fillStyle = "rgba(\n                " + this.fontColor.r + ", " + this.fontColor.g + ", \n                " + this.fontColor.b + ", " + textOpacity / 100 + ")";
-                ctx.fillText(this.activeTooltip, 5 * window.devicePixelRatio +
-                    this.options.tooltipPadding * window.devicePixelRatio, (this.options.fontSize / 2) * window.devicePixelRatio +
-                    7 * window.devicePixelRatio +
-                    this.options.tooltipPadding);
+                ctx.fillStyle = "rgba(\n                    " + this.fontColor.r + ", " + this.fontColor.g + ", \n                    " + this.fontColor.b + ", " + textOpacity / 100 + ")";
+                ctx.fillText(this.activeTooltip, this.options.tooltipPadding * window.devicePixelRatio, this.options.tooltipPadding * window.devicePixelRatio);
             }
         }
     };
@@ -1452,11 +1464,6 @@ var Magnetic = /** @class */ (function () {
                 _this.element.style.transform = '';
             }
         });
-        // this is so the transform takes effect, but we don't want to break any possible existing styling
-        if (!element.style.hasOwnProperty('display') ||
-            element.style.display === '') {
-            element.style.display = 'inline-block';
-        }
     }
     Magnetic.prototype.getDistance = function (x, y) {
         return Math.round(Math.sqrt(Math.pow(this.center.x - x, 2) + Math.pow(this.center.y - y, 2)));
