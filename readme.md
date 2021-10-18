@@ -182,7 +182,7 @@ Please, check the LICENSE.md file in the root of this repository tree.
 ## Contributions
 Any contributions are welcome!
 
-Remember, if merged, your code will be used as part of a commercial product if merged. 
+Remember, if merged, your code will be used as part of a commercial product. 
 By submitting a Pull Request, you are giving your consent for your code to be integrated into Blobity as part of a commercial product.
 
 
