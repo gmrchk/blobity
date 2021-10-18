@@ -178,8 +178,8 @@ export const Options: React.FC<{
     const startSwitchingSizeAndRadius = () => {
         const blobity = blobityInstance.current;
         const sizes = [
-            [90, 20],
-            [90, 45],
+            [40, 20],
+            [60, 15],
             [90, 1],
         ];
         let index = 1;

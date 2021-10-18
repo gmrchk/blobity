@@ -85,23 +85,13 @@ export default class Blobity {
     constructor(options: Partial<Options>) {
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
+        this.ctx = this.canvas.getContext('2d')!;
 
         this.updateOptions(options);
         if (!this.options.licenseKey) {
             console.warn(
                 'Valid license number for Blobity is required. You can get one at https://blobity.gmrchk.com.'
             );
-        }
-
-        this.ctx = this.canvas.getContext('2d')!;
-        this.ctx.canvas.style.width = `${window.innerWidth}px`;
-        this.ctx.canvas.style.height = `${window.innerHeight}px`;
-
-        this.ctx.canvas.width = window.innerWidth * window.devicePixelRatio;
-        this.ctx.canvas.height = window.innerHeight * window.devicePixelRatio;
-
-        if (window.devicePixelRatio > 1) {
-            this.ctx.imageSmoothingEnabled = false;
         }
 
         this.kinetInstance = new Kinet({
@@ -230,8 +220,6 @@ export default class Blobity {
             left: 0;
             pointer-events: none;
             opacity: 1;
-            width: 100%;
-            height: 100%;
             will-change: transform;
             overflow: visible;
             opacity: ${this.options.opacity}; 
@@ -241,6 +229,8 @@ export default class Blobity {
 
         this.currentOffsetX = this.options.focusableElementsOffsetX;
         this.currentOffsetY = this.options.focusableElementsOffsetY;
+
+        this.resize();
 
         if (this.kinetInstance) {
             Object.entries(this.kinetInstance._instances)
@@ -699,10 +689,14 @@ export default class Blobity {
     }
 
     private resize = () => {
+        this.ctx.canvas.style.width = `${window.innerWidth}px`;
+        this.ctx.canvas.style.height = `${window.innerHeight}px`;
+
         this.ctx.canvas.width = window.innerWidth * window.devicePixelRatio;
         this.ctx.canvas.height = window.innerHeight * window.devicePixelRatio;
 
-        this.ctx.canvas.style.width = `${window.innerWidth}px`;
-        this.ctx.canvas.style.height = `${window.innerHeight}px`;
+        if (window.devicePixelRatio > 1) {
+            this.ctx.imageSmoothingEnabled = false;
+        }
     };
 }
