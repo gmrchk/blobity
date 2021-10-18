@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "dev": "concurrently 'npm run watch:lib' 'npm run watch:site'",
     "build:cleanup": "rm -rf lib && rm -rf dist && rm -rf site/public/blobity.js",
     "build:lib": "tsc",
     "build:dist": "webpack-cli",
@@ -35,6 +36,7 @@
     "@types/react": "^17.0.15",
     "@types/react-syntax-highlighter": "^13.5.2",
     "@types/styled-components": "^5.1.11",
+    "concurrently": "^6.3.0",
     "prettier": "^2.3.2",
     "react": "^17.0.2",
     "terser-webpack-plugin": "^5.1.4",
