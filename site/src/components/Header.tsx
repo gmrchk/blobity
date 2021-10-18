@@ -80,6 +80,7 @@ const Link = styled.a`
 
     @media ${media.midUp} {
         font-size: 22px;
+        padding: 0 8px;
     }
 
     img {

@@ -24,6 +24,7 @@ const Holder = styled.span`
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    padding: 0 10px;
 `;
 
 export const Title: React.FC<Props> = ({ children, small }) => {
