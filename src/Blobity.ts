@@ -689,15 +689,19 @@ export default class Blobity {
                 this.ctx.textBaseline = 'top';
                 this.ctx.textAlign = 'left';
                 this.ctx.font = `${this.options.fontWeight} ${
-                    this.options.fontSize * window.devicePixelRatio
+                    this.options.fontSize *
+                    window.devicePixelRatio *
+                    (scale / 100)
                 }px ${this.options.font}`;
                 ctx.fillStyle = `rgba(
                     ${this.fontColor.r}, ${this.fontColor.g}, 
                     ${this.fontColor.b}, ${textOpacity / 100})`;
                 ctx.fillText(
                     this.activeTooltip,
-                    this.options.tooltipPadding * window.devicePixelRatio,
-                    this.options.tooltipPadding * window.devicePixelRatio
+                    this.options.tooltipPadding * window.devicePixelRatio -
+                        ((scale - 100) / 100) * width,
+                    this.options.tooltipPadding * window.devicePixelRatio -
+                        ((scale - 100) / 100) * height
                 );
             }
         }
