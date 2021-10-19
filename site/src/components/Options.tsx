@@ -100,6 +100,11 @@ const Shape1 = styled.div`
     background: #666;
     background: rgba(208, 26, 124, 1);
     margin: 0 0 0 10px;
+
+    @media ${media.midUp} {
+        width: 32px;
+        height: 32px;
+    }
 `;
 
 const Shape2 = styled.div`
@@ -110,6 +115,11 @@ const Shape2 = styled.div`
     background: rgb(112, 65, 176);
     margin: 0 0 0 10px;
     border-radius: 7px;
+
+    @media ${media.midUp} {
+        width: 32px;
+        height: 32px;
+    }
 `;
 
 const Shape3 = styled.div`
@@ -119,7 +129,12 @@ const Shape3 = styled.div`
     background: #666;
     background: rgb(67, 66, 234);
     margin: 0 0 0 10px;
-    border-radius: 14px;
+    border-radius: 16px;
+
+    @media ${media.midUp} {
+        width: 32px;
+        height: 32px;
+    }
 `;
 
 export const Options: React.FC<{
@@ -252,22 +267,22 @@ export const Options: React.FC<{
                     <Shape1
                         data-blobity
                         data-blobity-radius="0"
-                        data-blobity-offset-x="1"
-                        data-blobity-offset-y="1"
+                        data-blobity-offset-x="0"
+                        data-blobity-offset-y="0"
                         data-blobity-magnetic="false"
                     />
                     <Shape2
                         data-blobity
                         data-blobity-radius="7"
-                        data-blobity-offset-x="1"
-                        data-blobity-offset-y="1"
+                        data-blobity-offset-x="0"
+                        data-blobity-offset-y="0"
                         data-blobity-magnetic="false"
                     />
                     <Shape3
                         data-blobity
-                        data-blobity-radius="14"
-                        data-blobity-offset-x="1"
-                        data-blobity-offset-y="1"
+                        data-blobity-radius="16"
+                        data-blobity-offset-x="0"
+                        data-blobity-offset-y="0"
                         data-blobity-magnetic="false"
                     />
                 </Controls>

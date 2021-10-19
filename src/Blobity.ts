@@ -591,7 +591,9 @@ export default class Blobity {
     ) {
         this.clear();
 
-        const maxDelta = (this.options.size / 8) * 7;
+        const maxDelta = this.activeFocusedElement
+            ? 0
+            : (this.options.size / 8) * 7;
 
         x = x * window.devicePixelRatio;
         y = y * window.devicePixelRatio;
