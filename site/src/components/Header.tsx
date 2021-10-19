@@ -71,7 +71,7 @@ const ListItem = styled.li<{ noMobile?: boolean }>`
     }
 `;
 
-const Link = styled.a`
+const Link = styled.a<{ noPadding?: boolean }>`
     display: inline-block;
     line-height: 36px;
     height: 36px;
@@ -80,7 +80,7 @@ const Link = styled.a`
 
     @media ${media.midUp} {
         font-size: 22px;
-        padding: 0 8px;
+        ${({ noPadding }) => (noPadding ? '' : 'padding: 0 8px;')}
     }
 
     img {
@@ -140,6 +140,7 @@ export const Header = () => {
                             href="https://github.com/gmrchk/blobity"
                             data-blobity-radius="22"
                             data-blobity-magnetic="false"
+                            noPadding
                         >
                             <img src={github} alt="Github" />
                         </Link>
