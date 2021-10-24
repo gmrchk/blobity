@@ -82,6 +82,10 @@ export default class Blobity {
 
     private disableTimeStamp: number = new Date().getTime();
 
+    private prefersReducedMotionMediaQuery: MediaQueryList;
+    private reduceMotionSetting: boolean = false;
+    private kinetDefaultMethod: 'animate' | 'set' = 'animate';
+
     constructor(options?: Partial<Options>) {
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
@@ -158,6 +162,15 @@ export default class Blobity {
         document.addEventListener('mousemove', this.enable, {
             passive: true,
         });
+
+        this.prefersReducedMotionMediaQuery = window.matchMedia(
+            '(prefers-reduced-motion: reduce)'
+        );
+        this.prefersReducedMotionMediaQuery.addEventListener(
+            'change',
+            this.updatePrefersReducedMotionSetting
+        );
+        this.updatePrefersReducedMotionSetting();
     }
 
     public updateOptions = (newOptions: Partial<Options>) => {
@@ -244,16 +257,25 @@ export default class Blobity {
 
             if (!this.stickedToElement && !this.sticketToElementTooltip) {
                 if (newOptions.radius !== undefined) {
-                    this.kinetInstance.animate('radius', this.options.radius);
+                    this.kinetInstance[this.kinetDefaultMethod](
+                        'radius',
+                        this.options.radius
+                    );
                 }
 
-                this.kinetInstance.animate('width', this.options.size);
-                this.kinetInstance.animate('height', this.options.size);
-                this.kinetInstance.animate(
+                this.kinetInstance[this.kinetDefaultMethod](
+                    'width',
+                    this.options.size
+                );
+                this.kinetInstance[this.kinetDefaultMethod](
+                    'height',
+                    this.options.size
+                );
+                this.kinetInstance[this.kinetDefaultMethod](
                     'x',
                     this.lastKnownCoordinates.x - this.options.size / 2
                 );
-                this.kinetInstance.animate(
+                this.kinetInstance[this.kinetDefaultMethod](
                     'y',
                     this.lastKnownCoordinates.y - this.options.size / 2
                 );
@@ -262,9 +284,13 @@ export default class Blobity {
     };
 
     public bounce() {
-        this.kinetInstance.set('scale', 97);
-        this.kinetInstance._instances.scale.velocity = 3;
-        this.kinetInstance.animate('scale', 100);
+        if (this.reduceMotionSetting) {
+            this.kinetInstance.set('scale', 100);
+        } else {
+            this.kinetInstance.set('scale', 97);
+            this.kinetInstance._instances.scale.velocity = 3;
+            this.kinetInstance.animate('scale', 100);
+        }
     }
 
     public destroy = () => {
@@ -290,6 +316,11 @@ export default class Blobity {
         document.removeEventListener('touchstart', this.disable);
         document.removeEventListener('touchend', this.disable);
         document.removeEventListener('mousemove', this.enable);
+
+        this.prefersReducedMotionMediaQuery.removeEventListener(
+            'change',
+            this.updatePrefersReducedMotionSetting
+        );
 
         document.body.removeChild(this.canvas);
         document.documentElement.style.cursor = '';
@@ -317,6 +348,11 @@ export default class Blobity {
             // let's take one cca frame as a limit
             this.isActive = true;
         }
+    };
+
+    private updatePrefersReducedMotionSetting = () => {
+        this.reduceMotionSetting = this.prefersReducedMotionMediaQuery.matches;
+        this.kinetDefaultMethod = this.reduceMotionSetting ? 'set' : 'animate';
     };
 
     public focusElement = (element: HTMLElement) => {
@@ -393,36 +429,42 @@ export default class Blobity {
                     : this.options.focusableElementsOffsetY;
 
                 const magnetic = element.getAttribute('data-blobity-magnetic');
-                if (
-                    magnetic === 'true' ||
-                    (this.options.magnetic && magnetic !== 'false')
-                ) {
-                    this.currentMagnetic = new Magnetic(element);
-                    this.currentMagnetic.onTick = () => {
-                        if (
-                            !this.activeTooltip &&
-                            this.activeFocusedElement === element
-                        ) {
-                            const { width, height, x, y } =
-                                element.getBoundingClientRect();
-                            const radius = element.getAttribute(
-                                'data-blobity-radius'
-                            );
+                if (!this.reduceMotionSetting) {
+                    if (
+                        magnetic === 'true' ||
+                        (this.options.magnetic && magnetic !== 'false')
+                    ) {
+                        this.currentMagnetic = new Magnetic(element);
+                        this.currentMagnetic.onTick = () => {
+                            if (
+                                !this.activeTooltip &&
+                                this.activeFocusedElement === element
+                            ) {
+                                const { width, height, x, y } =
+                                    element.getBoundingClientRect();
+                                const radius = element.getAttribute(
+                                    'data-blobity-radius'
+                                );
 
-                            this.kinetInstance.animate('textOpacity', 0);
-                            this.morph(
-                                {
-                                    width: width + this.currentOffsetX * 2,
-                                    height: height + this.currentOffsetY * 2,
-                                    x: x - this.currentOffsetX,
-                                    y: y - this.currentOffsetY,
-                                },
-                                radius != undefined
-                                    ? parseInt(radius)
-                                    : this.options.radius
-                            );
-                        }
-                    };
+                                this.kinetInstance[this.kinetDefaultMethod](
+                                    'textOpacity',
+                                    0
+                                );
+                                this.morph(
+                                    {
+                                        width: width + this.currentOffsetX * 2,
+                                        height:
+                                            height + this.currentOffsetY * 2,
+                                        x: x - this.currentOffsetX,
+                                        y: y - this.currentOffsetY,
+                                    },
+                                    radius != undefined
+                                        ? parseInt(radius)
+                                        : this.options.radius
+                                );
+                            }
+                        };
+                    }
                 }
             }
         }
@@ -453,20 +495,19 @@ export default class Blobity {
     };
 
     private mouseDown = () => {
-        this.kinetInstance.animate('scale', 97);
+        this.kinetInstance[this.kinetDefaultMethod]('scale', 97);
     };
 
     private mouseUp = () => {
         this.bounce();
-        //this.kinetInstance.animate('scale', 100)
     };
 
     private windowMouseEnter = () => {
-        this.kinetInstance.animate('opacity', 1);
+        this.kinetInstance[this.kinetDefaultMethod]('opacity', 1);
     };
 
     private windowMouseLeave = () => {
-        this.kinetInstance.animate('opacity', 0);
+        this.kinetInstance[this.kinetDefaultMethod]('opacity', 0);
     };
 
     private get activeTooltip() {
@@ -480,7 +521,7 @@ export default class Blobity {
     private highlightElement = (element: HTMLElement) => {
         const { width, height, x, y } = element.getBoundingClientRect();
         const radius = element.getAttribute('data-blobity-radius');
-        this.kinetInstance.animate('textOpacity', 0);
+        this.kinetInstance[this.kinetDefaultMethod]('textOpacity', 0);
         this.morph(
             {
                 width: width + this.currentOffsetX * 2,
@@ -499,7 +540,7 @@ export default class Blobity {
         const { actualBoundingBoxAscent, width } = this.ctx.measureText(text);
         const padding = this.options.tooltipPadding * 2;
 
-        this.kinetInstance.animate('textOpacity', 100);
+        this.kinetInstance[this.kinetDefaultMethod]('textOpacity', 100);
         this.morph(
             {
                 x: x + 6,
@@ -527,24 +568,33 @@ export default class Blobity {
             } else if (this.activeFocusedElement) {
                 this.highlightElement(this.activeFocusedElement);
             } else {
-                this.kinetInstance.animate('textOpacity', 0);
-                this.kinetInstance.animate(
+                this.kinetInstance[this.kinetDefaultMethod]('textOpacity', 0);
+                this.kinetInstance[this.kinetDefaultMethod](
                     'x',
                     event.clientX - this.options.size / 2
                 );
-                this.kinetInstance.animate(
+                this.kinetInstance[this.kinetDefaultMethod](
                     'y',
                     event.clientY - this.options.size / 2
                 );
-                this.kinetInstance.animate('width', this.options.size);
-                this.kinetInstance.animate('height', this.options.size);
-                this.kinetInstance.animate('radius', this.options.size / 2);
+                this.kinetInstance[this.kinetDefaultMethod](
+                    'width',
+                    this.options.size
+                );
+                this.kinetInstance[this.kinetDefaultMethod](
+                    'height',
+                    this.options.size
+                );
+                this.kinetInstance[this.kinetDefaultMethod](
+                    'radius',
+                    this.options.size / 2
+                );
             }
         } else {
             this.initialized = true;
             this.kinetInstance.set('x', event.clientX - this.options.size / 2);
             this.kinetInstance.set('y', event.clientY - this.options.size / 2);
-            this.kinetInstance.animate('opacity', 1);
+            this.kinetInstance[this.kinetDefaultMethod]('opacity', 1);
         }
     };
 
@@ -565,20 +615,29 @@ export default class Blobity {
         if (this.disablingStickedToElementTimeout) {
             clearTimeout(this.disablingStickedToElementTimeout);
         }
-        this.kinetInstance.animate('radius', radius);
-        this.kinetInstance.animate('width', width);
-        this.kinetInstance.animate('height', height);
-        this.kinetInstance.animate('x', x);
-        this.kinetInstance.animate('y', y);
+        this.kinetInstance[this.kinetDefaultMethod]('radius', radius);
+        this.kinetInstance[this.kinetDefaultMethod]('width', width);
+        this.kinetInstance[this.kinetDefaultMethod]('height', height);
+        this.kinetInstance[this.kinetDefaultMethod]('x', x);
+        this.kinetInstance[this.kinetDefaultMethod]('y', y);
     }
 
     private resetMorph = (x: number, y: number) => {
         this.disablingStickedToElementTimeout = setTimeout(() => {
-            this.kinetInstance.animate('width', this.options.size);
-            this.kinetInstance.animate('height', this.options.size);
-            this.kinetInstance.animate('radius', this.options.size / 2);
-            this.kinetInstance.animate('x', x);
-            this.kinetInstance.animate('y', y);
+            this.kinetInstance[this.kinetDefaultMethod](
+                'width',
+                this.options.size
+            );
+            this.kinetInstance[this.kinetDefaultMethod](
+                'height',
+                this.options.size
+            );
+            this.kinetInstance[this.kinetDefaultMethod](
+                'radius',
+                this.options.size / 2
+            );
+            this.kinetInstance[this.kinetDefaultMethod]('x', x);
+            this.kinetInstance[this.kinetDefaultMethod]('y', y);
         });
     };
 
