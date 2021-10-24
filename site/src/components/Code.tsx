@@ -1,17 +1,12 @@
 import React from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import {
-    darcula,
-    atomDark,
-    vscDarkPlus,
-    duotoneDark,
-    duotoneSpace,
-    materialDark,
-} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import styled from 'styled-components';
+import Blobity from '../../../lib';
 
 type Props = {
     language: 'jsx' | 'html';
+    blobityInstance: React.MutableRefObject<Blobity | null>;
 };
 const Wrapper = styled.div`
     position: relative;
@@ -55,9 +50,23 @@ const Component = () => {
     return <div />; 
 };`;
 
-export const Code: React.FC<Props> = ({ children, language }) => {
+export const Code: React.FC<Props> = ({
+    children,
+    language,
+    blobityInstance,
+}) => {
     const onClick = () => {
         navigator.clipboard.writeText(String(children));
+        if (blobityInstance.current) {
+            blobityInstance.current.showTooltip('Copied!');
+
+            setTimeout(() => {
+                if (blobityInstance.current) {
+                    blobityInstance.current.reset();
+                    blobityInstance.current.bounce();
+                }
+            }, 1400);
+        }
     };
 
     return (

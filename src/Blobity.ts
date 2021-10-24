@@ -341,6 +341,22 @@ export default class Blobity {
         this.manuallySetFocusedElement = null;
         this.manuallySetTooltipText = null;
 
+        if (this.activeTooltip) {
+            this.displayTooltip(
+                this.activeTooltip,
+                this.lastKnownCoordinates.x,
+                this.lastKnownCoordinates.y
+            );
+
+            return;
+        }
+
+        if (this.activeFocusedElement) {
+            this.highlightElement(this.activeFocusedElement);
+
+            return;
+        }
+
         this.resetMorph(
             this.lastKnownCoordinates.x - this.options.size / 2,
             this.lastKnownCoordinates.y - this.options.size / 2

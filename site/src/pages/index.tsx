@@ -114,10 +114,14 @@ export default () => {
                 <Headline>Ridiculously easy to integrate</Headline>
                 <Layout>
                     <Half>
-                        <Code language="html">{htmlExample}</Code>
+                        <Code blobityInstance={blobityInstance} language="html">
+                            {htmlExample}
+                        </Code>
                     </Half>
                     <Half>
-                        <Code language="jsx">{reactExample}</Code>
+                        <Code blobityInstance={blobityInstance} language="jsx">
+                            {reactExample}
+                        </Code>
                     </Half>
                 </Layout>
             </Section>
