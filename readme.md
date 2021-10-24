@@ -14,6 +14,7 @@
 - [Usage](https://github.com/gmrchk/blobity#usage)
 - [Public API methods](https://github.com/gmrchk/blobity#public-api-methods)
 - [React](https://github.com/gmrchk/blobity#react)
+- [Prefers Reduced Motion](https://github.com/gmrchk/blobity#prefers-reduced-motion)
 - [Contributions](https://github.com/gmrchk/blobity#contributions)
 
 ## Installation
@@ -194,6 +195,11 @@ const Component = () => {
     return <div />;
 };
 ```
+
+## Prefers Reduced Motion
+Regardless of the system the computer is using, majority of them have a special switch to hint the creators of website, webapps, but also native applications that the user of the computer prefers to see less animations.
+In css, this setting can be found under [prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion). 
+Blobity checks for this setting and reduces animations where it can, without affecting the actual design too much.
 
 ## Contributions
 Any contributions are welcome!
