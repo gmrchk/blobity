@@ -16,6 +16,7 @@
 - [React](https://github.com/gmrchk/blobity#react)
 - [Prefers Reduced Motion](https://github.com/gmrchk/blobity#prefers-reduced-motion)
 - [Contributions](https://github.com/gmrchk/blobity#contributions)
+- [Special thanks](https://github.com/gmrchk/blobity#special-thanks)
 
 ## Installation
 There are several options how to install Blobity to your site. 
@@ -207,4 +208,7 @@ Any contributions are welcome!
 Remember, if merged, your code will be used as part of a commercial product. 
 By submitting a Pull Request, you are giving your consent for your code to be integrated into Blobity as part of a commercial product.
 
+## Special thanks
+The name of this library, is inspired by [Flickity](https://flickity.metafizzy.co/), awesome carousel library that I've used extensively throughout my career, and always thought to be a piece of art, like anything [@desandro](https://twitter.com/desandro) produces. 
 
+Special thanks to [@JoshWComeau](https://twitter.com/JoshWComeau) for the tips and help on Blobity and getting the word out there! 
