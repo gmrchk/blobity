@@ -16,6 +16,7 @@ import { Dots } from '../components/Dots';
 import { Notice } from '../components/Notice';
 import { Controls } from '../components/Controls';
 import { Thanks } from '../components/Thanks';
+import { InlineCode } from '../components/Code';
 import { Code, htmlExample, reactExample } from '../components/Code';
 
 export const initiaBlobityOptions = {
@@ -151,17 +152,20 @@ export default () => {
                     <Half>
                         <Headline>Pricing</Headline>
                         <Text>
-                            The pricing is simple - license is purchased per
-                            project. One license can be used for one website /
-                            application, regardless of the size, purpose, or the
-                            team working on the project.
+                            Blobity has an{' '}
+                            <strong>GPLv3 open source license</strong> handy for
+                            anyone creating open source project themselves. In
+                            short, if you're creating a project with license
+                            compatible with open source GPLv3 license, you can
+                            go nuts without any further thinking.
                         </Text>
                         <Text>
-                            <Link href="https://github.com/sponsors/gmrchk">
-                                GitHub sponsors of gmrchk
-                            </Link>{' '}
-                            can use this product without limits for as long as
-                            the sponsorship is active.
+                            For more complicated use cases or commercial use,
+                            there is a&nbsp;<strong>commercial license</strong>.
+                            The pricing is simple - license is purchased per
+                            project at fixed price. One license can be used for
+                            one website / application, regardless of the size,
+                            purpose, or the team working on the project.
                         </Text>
                         <Text>
                             For any special use case, please, contact{' '}
@@ -181,23 +185,69 @@ export default () => {
             </Section>
             <Section id="faq" thin>
                 <Headline>FAQ</Headline>
+                <SubHeadline>Is Blobity free?</SubHeadline>
+                <Text>
+                    Blobity is distributed under{' '}
+                    <Link href="https://www.gnu.org/licenses/gpl-3.0.html">
+                        GPLv3 license
+                    </Link>
+                    . As long as your project is open sourced under license
+                    compatible with GPLv3, you can use and modify Blobity
+                    without limits. The same applies to private projects that
+                    are not distributed publicly.
+                </Text>
+                <Text>
+                    The important part of the license is that once you
+                    distribute your application utilizing Blobity to public in
+                    some way, you need to make your source code public too. As
+                    long as this fits your needs, feel free to use the open
+                    source license.
+                </Text>
+                <Text>
+                    However, in case you need to keep your source code private
+                    for any reason, commercial license is a way to go.
+                </Text>
+                <Text>
+                    As a bonus, any{' '}
+                    <Link href="https://github.com/sponsors/gmrchk">
+                        GitHub sponsors
+                    </Link>{' '}
+                    can use this product without limits for as long as the
+                    sponsorship is active. This applies to Blobity, as well as
+                    any other future projects.
+                </Text>
                 <SubHeadline>How long can I use Blobity?</SubHeadline>
                 <Text>
-                    Blobity license is unlimited time-wise. You can use Blobity
-                    for the entire lifetime of your project. No time limitations
-                    or ongoing costs.
+                    Blobity commercial license is unlimited time-wise. You can
+                    use Blobity for the entire lifetime of your project. No time
+                    limitations or ongoing costs.
                 </Text>
                 <SubHeadline>
                     Can I use it for developing commercial projects?
                 </SubHeadline>
                 <Text>
-                    You are granted a license to use the SOFTWARE as part of one
-                    application, so long as that application is owned and
-                    operated by you, the LICENSEE, or is owned and operated by
-                    clients of LICENSEE.
+                    Yes, you can purchase commercial license{' '}
+                    <Link href="https://gmrchk.gumroad.com/l/blobity">
+                        here
+                    </Link>{' '}
+                    . Under this license, you are granted a license to use the
+                    SOFTWARE as part of one application, so long as that
+                    application is owned and operated by you, the LICENSEE, or
+                    is owned and operated by clients of LICENSEE.
                 </Text>
                 <SubHeadline>
-                    Can I use Blobity on multiple projects?
+                    Blobity throws missing license key warning.
+                </SubHeadline>
+                <Text>
+                    If you're using Blobity under open source license, or you
+                    are eligible to use Blobity without purchasing license
+                    thanks to the GitHub sponsorship, you can use your GitHub
+                    username as a <InlineCode>licenseKey</InlineCode> option to
+                    prevent the warning. If you don't have Github account,{' '}
+                    <InlineCode>opensource</InlineCode> value will do too.
+                </Text>
+                <SubHeadline>
+                    Can I use Blobity on multiple commercial projects?
                 </SubHeadline>
                 <Text>
                     Anyone can purchase unlimited number of licenses, but one
@@ -208,32 +258,32 @@ export default () => {
                     Blobity is published publicly to npm registry, and to GitHub
                     including its source code, so there is plenty opportunity to
                     try anything there is to try before purchasing your license.
-                    If you still feel unsatisfied after the purchase, it's
-                    possible in the 14 days from your purchase{' '}
+                    If you still feel unsatisfied after the purchase, please
+                    contact{' '}
                     <Link href="mailto:support@gmrchk.com">
                         support@gmrchk.com
-                    </Link>
-                    .
+                    </Link>{' '}
+                    in the first 14 days from your purchase.
                 </Text>
                 <SubHeadline>Do I get access to updates?</SubHeadline>
                 <Text>
-                    You will have access to all future updates and you can
-                    update to newer versions any time. All development happens
-                    in the public GitHub repository, and is being pushed to
-                    public npm registry as well following the semver versioning.
+                    You will have access to future updates and you can update to
+                    newer versions any time. All development happens in the
+                    public GitHub repository, and is being pushed to public npm
+                    registry as well following the semver versioning.
                 </Text>
                 <SubHeadline>Do you offer ongoing support?</SubHeadline>
                 <Text>
                     The better, the more stable, and the more features Blobity
-                    has, the more customers it can attract, so it will surely
-                    improve and get extended over time to some extent. Bugs are
-                    fixed in a timely manner.
+                    has, the more customers it can attract, so it will improve
+                    and get extended over time to some extent. Bugs are fixed in
+                    a timely manner.
                 </Text>
                 <Text>
                     However, the software comes as is at the time of your
                     purchase, and no future developments are guaranteed. If you
                     want to make specific per-case requests or are looking for
-                    personal support, let's talk through{' '}
+                    personal support, let's talk at{' '}
                     <Link href="mailto:support@gmrchk.com">
                         support@gmrchk.com
                     </Link>

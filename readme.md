@@ -7,6 +7,15 @@
     <a href="https://app.netlify.com/sites/nifty-tesla-5b3f95/deploys"><img src="https://api.netlify.com/api/v1/badges/7777ddcf-a486-4684-be57-59320956a0e3/deploy-status" alt="Netlify Status"></a>
 </p>
 
+- [Installation](https://github.com/gmrchk/blobity#installation)
+- [License](https://github.com/gmrchk/blobity#license)
+    - [Open source license](https://github.com/gmrchk/blobity#open-source-license)
+    - [Commercial license](https://github.com/gmrchk/blobity#commercial-license)
+- [Usage](https://github.com/gmrchk/blobity#usage)
+- [Public API methods](https://github.com/gmrchk/blobity#public-api-methods)
+- [React](https://github.com/gmrchk/blobity#react)
+- [Contributions](https://github.com/gmrchk/blobity#contributions)
+
 ## Installation
 There are several options how to install Blobity to your site. 
 
@@ -44,6 +53,16 @@ import Blobity from 'blobity';
 
 There is an advantage to the latest format, because the library is not bundled, doesn't contain boiler plate code of the bundler, doesn't pollute the global scope and is much smaller and can be effectively tree-shaked as well.
 The package also contains additional utils for React for example. 
+
+## License
+Check the LICENSE.md file in the root of this repository tree for closer details.
+
+### Open source license
+Blobity is distributed under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) for any project compatible with GPLv3. In other words, as long as your application is open source under GPLv3, you may use Blobity under open source license.
+
+### Commercial license
+To use Blobity as part of commercial projects including website, themes and application, Commercial license is a way to go. License can be purchased at [blobity.dev](https://blobity.dev/). 
+
 
 ## Usage
 To start Blobity, the instance needs to be created from its class. The class is either defined globally from a standalone versions, or can be imported from a package as a default export.  
@@ -175,9 +194,6 @@ const Component = () => {
     return <div />;
 };
 ```
-
-## License
-Please, check the LICENSE.md file in the root of this repository tree.  
 
 ## Contributions
 Any contributions are welcome!
