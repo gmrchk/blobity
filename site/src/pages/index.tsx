@@ -8,7 +8,7 @@ import { Section } from '../components/Section';
 import { Title } from '../components/Title';
 import { Headline, SubHeadline, Text } from '../components/Text';
 import { Layout, Half } from '../components/Layout';
-import { Button, Link } from '../components/Button';
+import { Button, Link, Uppercase } from '../components/Button';
 import { Options } from '../components/Options';
 import { Price } from '../components/Price';
 import { BigText } from '../components/BigText';
@@ -56,6 +56,20 @@ export default () => {
             <Notice />
             <Header />
             <Section hero>
+                <a
+                    href="https://www.producthunt.com/posts/blobity?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-blobity"
+                    target="_blank"
+                    className="producthunt"
+                    data-blobity-radius="12"
+                >
+                    <img
+                        src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=317194&theme=light"
+                        alt="Blobity - Take your website cursor to the the next level. | Product Hunt"
+                        style={{ width: '250px', height: '54px' }}
+                        width="250"
+                        height="54"
+                    />
+                </a>
                 <Title>Blobity</Title>
                 <Text>
                     The cursor is the heart of any interaction with the web.

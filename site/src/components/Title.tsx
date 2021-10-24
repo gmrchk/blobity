@@ -6,9 +6,9 @@ type Props = { small?: boolean };
 
 const Wrapper = styled.h1<Props>`
     display: block;
-    font-size: ${({ small }) => (small ? '60px' : '80px')};
+    font-size: ${({ small }) => (small ? '60px' : '70px')};
     line-height: 1;
-    margin: 0 auto;
+    margin: 10px auto 0;
 
     @media ${media.midUp} {
         font-size: ${({ small }) => (small ? '100px' : '140px')};

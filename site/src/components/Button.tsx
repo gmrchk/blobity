@@ -3,7 +3,15 @@ import styled from 'styled-components';
 import { media } from './Layout';
 import { Link as GatsbyLink } from 'gatsby';
 
-export const Button = styled.a<{ ghost?: boolean; tiny?: boolean }>`
+export const Uppercase = styled.span`
+    text-transform: uppercase;
+`;
+
+export const Button = styled.a<{
+    ghost?: boolean;
+    tiny?: boolean;
+    productHunt?: boolean;
+}>`
     display: inline-block;
     background: none;
     appearance: none;
@@ -21,17 +29,24 @@ export const Button = styled.a<{ ghost?: boolean; tiny?: boolean }>`
         rgba(208, 26, 124, 1),
         rgba(41, 40, 240, 1)
     );
-    ${({ ghost }) => (ghost ? 'background: transparent;' : '')}
-    ${({ ghost }) => (ghost ? 'border: 2px solid #ddd;' : '')}
-    ${({ ghost }) => (ghost ? 'padding: 12px 14px;' : '')}
-    ${({ tiny }) => (tiny ? 'padding: 6px 8px;' : '')}
     color: #fff;
     border-radius: 4px;
     margin-top: 20px;
     z-index: 3;
     letter-spacing: 1px;
+    ${({ ghost }) => (ghost ? 'background: transparent;' : '')}
+    ${({ ghost }) => (ghost ? 'border: 2px solid #ddd;' : '')}
+    ${({ ghost }) => (ghost ? 'padding: 12px 14px;' : '')}
+    ${({ tiny }) => (tiny ? 'padding: 6px 8px;' : '')}
     ${({ tiny }) => (tiny ? 'margin-top: 0;' : '')}
     ${({ tiny }) => (tiny ? 'letter-spacing: 1px;' : '')}
+
+    ${({ productHunt }) => (productHunt ? 'background: #f64900;' : '')}
+    ${({ productHunt }) => (productHunt ? 'padding: 6px 8px;' : '')}
+    ${({ productHunt }) => (productHunt ? 'margin-top: 0;' : '')}
+    ${({ productHunt }) => (productHunt ? 'margin-bottom: 10px;' : '')}
+    ${({ productHunt }) => (productHunt ? 'letter-spacing: 0px;' : '')}
+    ${({ productHunt }) => (productHunt ? 'text-transform: none;' : '')}
 
     & + & {
         margin-left: 20px;
@@ -45,9 +60,14 @@ export const Button = styled.a<{ ghost?: boolean; tiny?: boolean }>`
         font-size: 14px;
         padding: 20px;
         ${({ ghost }) => (ghost ? 'padding: 18px 20px;' : '')}
+
         ${({ tiny }) => (tiny ? 'font-size: 12px;' : '')}
         ${({ tiny }) => (tiny ? 'padding: 6px 8px;' : '')}
         ${({ tiny }) => (tiny ? 'margin-top: 0;' : '')}
+
+        ${({ productHunt }) => (productHunt ? 'font-size: 14px;' : '')}
+        ${({ productHunt }) => (productHunt ? 'padding: 10px 12px;' : '')}
+        ${({ productHunt }) => (productHunt ? 'margin-top: 0;' : '')}
     }
 `;
 
