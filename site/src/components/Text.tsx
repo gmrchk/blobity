@@ -12,7 +12,7 @@ export const StyledHeadline = styled.h2`
     }
 `;
 
-export const SubHeadline = styled.h2`
+const StyledSubHeadline = styled.h2`
     font-size: 20px;
     margin: 40px auto 20px;
     padding: 0 20px 0 0;
@@ -21,6 +21,16 @@ export const SubHeadline = styled.h2`
         font-size: 24px;
     }
 `;
+
+export const SubHeadline: React.FC = ({ children }) => {
+    return (
+        <StyledSubHeadline
+            id={encodeURIComponent(String(children).replace(/ /g, '-'))}
+        >
+            {children}
+        </StyledSubHeadline>
+    );
+};
 
 export const Text = styled.p<{ small?: boolean }>`
     font-size: ${({ small }) => (small ? '13px' : '16px')};
