@@ -30,7 +30,8 @@
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "vue": "next"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.171",
