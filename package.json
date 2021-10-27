@@ -41,6 +41,7 @@
     "concurrently": "^6.3.0",
     "prettier": "^2.3.2",
     "react": "^17.0.2",
+    "vue": "next",
     "terser-webpack-plugin": "^5.1.4",
     "ts-loader": "^9.2.3",
     "tslib": "^2.3.0",
