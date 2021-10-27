@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
 import { Title } from '../components/Title';
 import { Text } from '../components/Text';
 import { Button } from '../components/Button';
 import { Section } from '../components/Section';
 import { InlineCode } from '../components/Code';
 import { Head } from '../components/Head';
-import useBlobity from '../../../lib/useBlobity';
 import { initiaBlobityOptions } from './index';
+import useBlobity from '../../../src/useBlobityReact';
 
 const NotFoundPage = () => {
     useBlobity(initiaBlobityOptions);
