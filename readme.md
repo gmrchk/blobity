@@ -27,7 +27,8 @@ The first is to include Blobity with scripts tag from the downloaded version ava
 <script src="./dist/blobity.min.js"></script>
 ```
 
-The second is to include the same script from CDN. The CDN version of Blobity also includes something called autostart, which will initialize Blobity with the default options.
+The second is to include the same script from CDN. The CDN version of Blobity also includes something called autostart, which will initialize Blobity with the default options. 
+Loading and auto-initializing Blobity in the `<head>` tag can lead to error of `document.body is null`, as body does not exist at the time. 
 
 ```html
 <script src="https://cdn.blobity.dev/by.js?licenseKey=..."></script>
