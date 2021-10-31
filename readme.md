@@ -130,7 +130,7 @@ Some of the options can be also overwritten for specific elements, with `data-bl
 <div data-blobity-offset-y="10">I will have a Y offset (option focusableElementsOffsetY) of 10 regardless of the global Blobity option.</div>
 <div data-blobity-magnetic="false">I will have magnetic behaviour (option magnetic) disabled regardless of the global Blobity option.</div>
 <div data-blobity-radius="10">I will have a radius of the blob square (option radius) of 10 regardless of the global Blobity option.</div>
-<div data-no-blobity>If the focusableElements options wasn't changed form defualt value, I will not be considered focusable element.</div>
+<div data-no-blobity>If the focusableElements options wasn't changed form default value, I will not be considered focusable element.</div>
 ```
 
 ## Tooltips
