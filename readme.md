@@ -190,7 +190,7 @@ Since Blobity is a global library for which the instances should be created once
 This hook can be imported from the package version of Blobity. It accepts the same options as Blobity does, and returns a React ref of the instance.
 
 ```javascript
-import useBlobity from 'blobity/lib/useBlobityReact';
+import useBlobity from 'blobity/lib/react/useBlobity';
 
 const Component = () => {
     const blobity = useBlobity({
@@ -209,7 +209,7 @@ const Component = () => {
 </template>
 
 <script setup>
-import useBlobity from 'blobity/lib/useBlobityVue';
+import useBlobity from 'blobity/lib/vue/useBlobity';
 const blobity = useBlobity({
     licenseKey: '...'
 })
