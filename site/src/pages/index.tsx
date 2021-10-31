@@ -17,7 +17,7 @@ import { Controls } from '../components/Controls';
 import { Thanks } from '../components/Thanks';
 import { InlineCode } from '../components/Code';
 import { Code, htmlExample, reactExample } from '../components/Code';
-import useBlobity from '../../../src/react/useBlobityReact';
+import useBlobity from '../../../lib/useBlobity';
 
 export const initiaBlobityOptions = {
     licenseKey: 'gmrchk',
