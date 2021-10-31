@@ -14,6 +14,7 @@
 - [Usage](https://github.com/gmrchk/blobity#usage)
 - [Public API methods](https://github.com/gmrchk/blobity#public-api-methods)
 - [React](https://github.com/gmrchk/blobity#react)
+- [Vue](https://github.com/gmrchk/blobity#vue)
 - [Prefers Reduced Motion](https://github.com/gmrchk/blobity#prefers-reduced-motion)
 - [Contributions](https://github.com/gmrchk/blobity#contributions)
 - [Special thanks](https://github.com/gmrchk/blobity#special-thanks)
@@ -189,7 +190,7 @@ Since Blobity is a global library for which the instances should be created once
 This hook can be imported from the package version of Blobity. It accepts the same options as Blobity does, and returns a React ref of the instance.
 
 ```javascript
-import useBlobity from 'blobity/lib/useBlobity';
+import useBlobity from 'blobity/lib/useBlobityReact';
 
 const Component = () => {
     const blobity = useBlobity({
@@ -198,6 +199,21 @@ const Component = () => {
 
     return <div />;
 };
+```
+
+## Vue
+
+```vue
+<template>
+    <div />
+</template>
+
+<script setup>
+import useBlobity from 'blobity/lib/useBlobityVue';
+const blobity = useBlobity({
+    licenseKey: '...'
+})
+</script>
 ```
 
 ## Prefers Reduced Motion

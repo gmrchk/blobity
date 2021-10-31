@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import useBlobity from '../../../lib/useBlobity';
 import './styles.css';
 import { Head } from '../components/Head';
 import { Header } from '../components/Header';
@@ -8,7 +7,7 @@ import { Section } from '../components/Section';
 import { Title } from '../components/Title';
 import { Headline, SubHeadline, Text } from '../components/Text';
 import { Layout, Half } from '../components/Layout';
-import { Button, Link, Uppercase } from '../components/Button';
+import { Button, Link} from '../components/Button';
 import { Options } from '../components/Options';
 import { Price } from '../components/Price';
 import { BigText } from '../components/BigText';
@@ -18,6 +17,7 @@ import { Controls } from '../components/Controls';
 import { Thanks } from '../components/Thanks';
 import { InlineCode } from '../components/Code';
 import { Code, htmlExample, reactExample } from '../components/Code';
+import useBlobity from '../../../src/useBlobityReact';
 
 export const initiaBlobityOptions = {
     licenseKey: 'gmrchk',
