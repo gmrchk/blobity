@@ -80,6 +80,8 @@ const options = { color: 'rgb(180, 180, 180)' };
 new Blobity(options);
 ```
 
+> ⚠️ Blobity creates `canvas` element in body. For this, `<body>` must be present on the page at the time of initialization., so initializing Blobity in `<head>` can lead to error! A good practice is to load and initialize Blobity as late as possible (like before `</body>`), as it's usually not critical for the page to be displayed and work properly.    
+
 ## Options
 As you may have noticed in a previous example, Blobity accepts options as an argument when the instance is being created. 
 Options are passed as an object.
