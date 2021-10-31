@@ -216,7 +216,9 @@ export default class Blobity {
                     document.createTextNode(
                         `html { cursor: url(data:image/svg+xml;base64,${btoa(
                             dot
-                        )}) 4 4, auto;}`
+                        )}) ${this.options.dotSize / 2} ${
+                            this.options.dotSize / 2
+                        }, auto;}`
                     )
                 );
                 document.head.appendChild(this.globalStyles);
