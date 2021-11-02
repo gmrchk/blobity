@@ -28,7 +28,8 @@ The first is to include Blobity with scripts tag from the downloaded version ava
 <script src="./dist/blobity.min.js"></script>
 ```
 
-The second is to include the same script from CDN. The CDN version of Blobity also includes something called autostart, which will initialize Blobity with the default options.
+The second is to include the same script from CDN. The CDN version of Blobity also includes something called autostart, which will initialize Blobity with the default options. 
+Loading and auto-initializing Blobity in the `<head>` tag can lead to error of `document.body is null`, as body does not exist at the time. 
 
 ```html
 <script src="https://cdn.blobity.dev/by.js?licenseKey=..."></script>
@@ -80,6 +81,8 @@ import Blobity from 'blobity';
 const options = { color: 'rgb(180, 180, 180)' };
 new Blobity(options);
 ```
+
+> ⚠️ Blobity creates `canvas` element in body. For this, `<body>` must be present on the page at the time of initialization., so initializing Blobity in `<head>` can lead to error! A good practice is to load and initialize Blobity as late as possible (like before `</body>`), as it's usually not critical for the page to be displayed and work properly.    
 
 ## Options
 As you may have noticed in a previous example, Blobity accepts options as an argument when the instance is being created. 
@@ -187,7 +190,7 @@ Since Blobity is a global library for which the instances should be created once
 This hook can be imported from the package version of Blobity. It accepts the same options as Blobity does, and returns a React ref of the instance.
 
 ```javascript
-import useBlobity from 'blobity/lib/useBlobityReact';
+import useBlobity from 'blobity/lib/react/useBlobity';
 
 const Component = () => {
     const blobity = useBlobity({
@@ -206,7 +209,7 @@ const Component = () => {
 </template>
 
 <script setup>
-import useBlobity from 'blobity/lib/useBlobityVue';
+import useBlobity from 'blobity/lib/vue/useBlobity';
 const blobity = useBlobity({
     licenseKey: '...'
 })
