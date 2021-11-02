@@ -6,7 +6,7 @@ import { Section } from '../components/Section';
 import { InlineCode } from '../components/Code';
 import { Head } from '../components/Head';
 import { initiaBlobityOptions } from './index';
-import useBlobity from '../../../src/useBlobityReact';
+import useBlobity from '../../../src/react/useBlobity';
 
 const NotFoundPage = () => {
     useBlobity(initiaBlobityOptions);
