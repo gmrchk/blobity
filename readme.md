@@ -19,6 +19,8 @@
 - [Contributions](https://github.com/gmrchk/blobity#contributions)
 - [Special thanks](https://github.com/gmrchk/blobity#special-thanks)
 
+> :warning: Note that the default auto-start behaviour of CDN Blobity version provided at `https://cdn.blobity.dev/by.js` was changed so the auto start is not triggered by default, and instead is only triggered when `autoStart` parameter is included `https://cdn.blobity.dev/by.js?autoStart&licenseKey=...`. This is due to the forgotten `noAutoStart` parameter being the most common issue and the behaviour being overall confusing and rarely used to auto start Blobity on a page.
+
 ## Installation
 There are several options how to install Blobity to your site. 
 
@@ -28,17 +30,17 @@ The first is to include Blobity with scripts tag from the downloaded version ava
 <script src="./dist/blobity.min.js"></script>
 ```
 
-The second is to include the same script from CDN. The CDN version of Blobity also includes something called autostart, which will initialize Blobity with the default options. 
-Loading and auto-initializing Blobity in the `<head>` tag can lead to error of `document.body is null`, as body does not exist at the time. 
+The second is to include the same script from CDN. This version will also create a global `Blobity` object which you can use to create your instance.
 
 ```html
-<script src="https://cdn.blobity.dev/by.js?licenseKey=..."></script>
+<script src="https://cdn.blobity.dev/by.js"></script>
 ```
 
-You can prevent that by adding `noAutoStart` parameter to the `src` URL.
+The CDN version of Blobity also includes something called autostart, which will initialize Blobity with the default options, in case the `autoStart` param is defined.
+Note that loading and auto-initializing Blobity in the `<head>` tag can lead to error of `document.body is null`, as body does not exist at the time.
 
 ```html
-<script src="https://cdn.blobity.dev/by.js?noAutoStart&licenseKey=..."></script>
+<script src="https://cdn.blobity.dev/by.js?autoStart&licenseKey=..."></script>
 ```
 
 The third and most flexible option is to install with package managers like **npm** or **yarn**.

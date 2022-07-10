@@ -15,7 +15,7 @@ if (autoStart) {
     const url = new URL(autoStart.src);
     const params = url.searchParams;
 
-    if (params.get('noAutoStart') === null) {
+    if (params.get('autoStart') !== null) {
         // @ts-ignore
         window.blobity = new Blobity({
             licenseKey: params.get('licenseKey'),
