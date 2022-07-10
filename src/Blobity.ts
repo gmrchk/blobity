@@ -14,6 +14,7 @@ export type Options = {
     zIndex: number;
     invert: boolean;
     dotColor: string | null;
+    dotSize: number;
     magnetic: boolean;
     mode: 'normal' | 'bouncy' | 'slow';
     radius: number;
@@ -40,6 +41,7 @@ export default class Blobity {
         zIndex: -1,
         invert: false,
         dotColor: null,
+        dotSize: 8,
         magnetic: true,
         mode: 'normal',
         radius: 4,
@@ -199,7 +201,8 @@ export default class Blobity {
             }
 
             if (!this.globalStyles) {
-                const dot = `<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill-rule="evenodd" fill="${this.options.dotColor}"/></svg>`;
+                const dot = `<svg xmlns="http://www.w3.org/2000/svg" width="${this.options.dotSize}" height="${this.options.dotSize}"
+                viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill-rule="evenodd" fill="${this.options.dotColor}"/></svg>`;
 
                 this.globalStyles = document.createElement('style');
                 this.globalStyles.setAttribute(
@@ -213,7 +216,9 @@ export default class Blobity {
                     document.createTextNode(
                         `html { cursor: url(data:image/svg+xml;base64,${btoa(
                             dot
-                        )}) 4 4, auto;}`
+                        )}) ${this.options.dotSize / 2} ${
+                            this.options.dotSize / 2
+                        }, auto;}`
                     )
                 );
                 document.head.appendChild(this.globalStyles);
