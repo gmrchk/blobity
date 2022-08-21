@@ -55,7 +55,7 @@ export default class Blobity {
     private color: Color | Color[] = { r: 0, g: 0, b: 0 };
     private fontColor: Color = { r: 0, g: 0, b: 0 };
     private stickedToElement: HTMLElement | null = null;
-    private stickedToElementMutationObserver: MutationObserver | null = null;
+    private stickedToElementMutationObserver: MutationObserver;
     private sticketToElementTooltip: string | null = null;
     private disablingStickedToElementTimeout: NodeJS.Timeout | null = null;
     private isActive: boolean = true;
@@ -174,6 +174,19 @@ export default class Blobity {
             this.updatePrefersReducedMotionSetting
         );
         this.updatePrefersReducedMotionSetting();
+
+        this.stickedToElementMutationObserver = new MutationObserver(mutations => {
+            for (const mutation of mutations) {
+                for (const el of mutation.removedNodes) {
+                    if (el === this.stickedToElement || el.contains(this.stickedToElement)) {
+                        this.resetStickedToElement();
+                        this.resetStickedToElementMutationObserver();
+                        this.resetMagnetic()
+                        this.reset();
+                    }
+                }
+            }
+        });
     }
 
     public updateOptions = (newOptions: Partial<Options>) => {
@@ -434,24 +447,10 @@ export default class Blobity {
                       )
                     : this.options.focusableElementsOffsetY;
 
-                const parent = element.parentNode;
-                if (parent) {
-                    this.stickedToElementMutationObserver = new MutationObserver(mutations => {
-                        for (const mutation of mutations) {
-                            for (const el of mutation.removedNodes) {
-                                if (el === element) {
-                                    this.resetStickedToElement();
-                                    this.resetStickedToElementMutationObserver();
-                                    this.resetMagnetic()
-                                    this.reset();
-                                }
-                            }
-                        }
-                    });
-                    this.stickedToElementMutationObserver.observe(parent, {
-                        childList: true,
-                    });
-                }
+                this.stickedToElementMutationObserver.observe(document.body, {
+                    childList: true,
+                    subtree: true,
+                });
 
                 const magnetic = element.getAttribute('data-blobity-magnetic');
                 if (!this.reduceMotionSetting) {
@@ -821,8 +820,7 @@ export default class Blobity {
     };
 
     private resetStickedToElementMutationObserver = () => {
-        this.stickedToElementMutationObserver?.disconnect();
-        this.stickedToElementMutationObserver = null;
+        this.stickedToElementMutationObserver.disconnect();
     };
 
     private resetMagnetic = () => {
