@@ -31,7 +31,7 @@ export const InlineCode = styled.code`
     border-radius: 3px;
 `;
 
-export const htmlExample = `<script src="https://cdn.blobity.dev/by.js?licenseKey=..."></script>
+export const htmlExample = `<script src="https://cdn.blobity.dev/by.js?autoStart&licenseKey=..."></script>
 
 <!-- or create instance manually to provide custom options -->
 <script src="https://cdn.blobity.dev/by.js"></script>
