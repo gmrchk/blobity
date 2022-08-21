@@ -42,7 +42,7 @@ export const initiaBlobityOptions = {
 
 export default () => {
     const blobityInstance = useBlobity(initiaBlobityOptions);
-    const removableButton = useRef<HTMLAnchorElement>(null);
+    const removableElement = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (blobityInstance.current) {
@@ -52,7 +52,7 @@ export default () => {
     }, [blobityInstance]);
 
     const removeButton = () => {
-        removableButton.current?.remove();
+        removableElement.current?.remove();
     }
 
     return (
@@ -80,7 +80,11 @@ export default () => {
                     The cursor is the heart of any interaction with the web.
                     <br /> Why not take it to the next level? 🚀
                 </Text>
-                <Button ref={removableButton} onClick={removeButton}>Remove me on click!</Button>
+                <div ref={removableElement}>
+                    <div>
+                        <Button onClick={removeButton}>Remove me on click!</Button>
+                    </div>
+                </div>
             </Section>
             <Section id="customize">
                 <Layout>
