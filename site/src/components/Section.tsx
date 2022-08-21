@@ -30,7 +30,6 @@ const Inner = styled.div<{
     @media ${media.midUp} {
         padding: 80px 20px;
         padding-top: ${({ extraSpace }) => (extraSpace ? '24vh' : '20vh')};
-        ${({ extraSpace }) => (extraSpace ? 'max-height: 74vh' : '')};
     }
 
     ${Text} {
