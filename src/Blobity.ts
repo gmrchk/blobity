@@ -23,6 +23,7 @@ export type Options = {
     fontSize: number;
     fontColor: string;
     tooltipPadding: number;
+    kineticMorphing: boolean;
 };
 export default class Blobity {
     private readonly canvas: HTMLCanvasElement;
@@ -50,6 +51,7 @@ export default class Blobity {
         fontSize: 40,
         fontColor: '#000000',
         tooltipPadding: 12,
+        kineticMorphing: true,
     };
     private initialized: boolean = false;
     private color: Color | Color[] = { r: 0, g: 0, b: 0 };
@@ -712,7 +714,7 @@ export default class Blobity {
             ctx.scale(scale / 100, scale / 100);
             ctx.translate(-width, -height);
 
-            const activateBlur =
+            const activateBlur = this.options.kineticMorphing &&
                 Math.abs(width - this.options.size * window.devicePixelRatio) <
                     2 &&
                 Math.abs(height - this.options.size * window.devicePixelRatio) <
