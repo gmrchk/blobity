@@ -8,7 +8,11 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "lib",
     "listEmittedFiles": true,
-    "declaration": true
+    "declaration": true,
+    "downlevelIteration": true,
+    "lib": [
+      "es5", "es6", "dom", "dom.iterable"
+    ]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules/**/*"]

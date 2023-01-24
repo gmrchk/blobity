@@ -55,6 +55,7 @@ export default class Blobity {
     private color: Color | Color[] = { r: 0, g: 0, b: 0 };
     private fontColor: Color = { r: 0, g: 0, b: 0 };
     private stickedToElement: HTMLElement | null = null;
+    private stickedToElementMutationObserver: MutationObserver;
     private sticketToElementTooltip: string | null = null;
     private disablingStickedToElementTimeout: NodeJS.Timeout | null = null;
     private isActive: boolean = true;
@@ -173,6 +174,19 @@ export default class Blobity {
             this.updatePrefersReducedMotionSetting
         );
         this.updatePrefersReducedMotionSetting();
+
+        this.stickedToElementMutationObserver = new MutationObserver(mutations => {
+            for (const mutation of mutations) {
+                for (const el of mutation.removedNodes) {
+                    if (el === this.stickedToElement || el.contains(this.stickedToElement)) {
+                        this.resetStickedToElement();
+                        this.resetStickedToElementMutationObserver();
+                        this.resetMagnetic()
+                        this.reset();
+                    }
+                }
+            }
+        });
     }
 
     public updateOptions = (newOptions: Partial<Options>) => {
@@ -433,6 +447,11 @@ export default class Blobity {
                       )
                     : this.options.focusableElementsOffsetY;
 
+                this.stickedToElementMutationObserver.observe(document.body, {
+                    childList: true,
+                    subtree: true,
+                });
+
                 const magnetic = element.getAttribute('data-blobity-magnetic');
                 if (!this.reduceMotionSetting) {
                     if (
@@ -482,17 +501,13 @@ export default class Blobity {
             ) as HTMLElement;
 
             if (element) {
-                this.stickedToElement = null;
-                this.sticketToElementTooltip = null;
+                this.resetStickedToElement();
+                this.resetStickedToElementMutationObserver();
 
                 this.currentOffsetX = this.options.focusableElementsOffsetX;
                 this.currentOffsetY = this.options.focusableElementsOffsetY;
 
-                if (this.currentMagnetic) {
-                    this.currentMagnetic!.destroy();
-                    this.currentMagnetic.onTick = null;
-                    this.currentMagnetic = null;
-                }
+                this.resetMagnetic();
 
                 this.resetMorph(event.clientX, event.clientY);
             }
@@ -796,6 +811,23 @@ export default class Blobity {
 
         if (window.devicePixelRatio > 1) {
             this.ctx.imageSmoothingEnabled = false;
+        }
+    };
+
+    private resetStickedToElement = () => {
+        this.stickedToElement = null;
+        this.sticketToElementTooltip = null;
+    };
+
+    private resetStickedToElementMutationObserver = () => {
+        this.stickedToElementMutationObserver.disconnect();
+    };
+
+    private resetMagnetic = () => {
+        if (this.currentMagnetic) {
+            this.currentMagnetic!.destroy();
+            this.currentMagnetic.onTick = null;
+            this.currentMagnetic = null;
         }
     };
 }
