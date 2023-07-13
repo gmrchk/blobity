@@ -255,7 +255,6 @@ export default class Blobity {
             pointer-events: none;
             opacity: 1;
             will-change: transform;
-            overflow: visible;
             opacity: ${this.options.opacity}; 
             z-index: ${this.options.invert ? 2147483647 : this.options.zIndex}; 
             ${this.options.invert && 'mix-blend-mode: difference'};
