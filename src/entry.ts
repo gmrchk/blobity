@@ -9,7 +9,7 @@ import Blobity from './Blobity';
 module.exports = Blobity;
 
 const autoStart = document.querySelector(
-    'script[src^="https://cdn.blobity.dev/by.js"]'
+    'script[src^="https://cdn.blobity.gmrchk.com/by.js"]'
 ) as HTMLScriptElement;
 if (autoStart) {
     const url = new URL(autoStart.src);

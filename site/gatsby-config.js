@@ -1,6 +1,6 @@
 module.exports = {
     siteMetadata: {
-        siteUrl: `https://blobity.dev`,
+        siteUrl: `https://blobity.gmrchk.com`,
     },
     plugins: [
         'gatsby-plugin-react-helmet',

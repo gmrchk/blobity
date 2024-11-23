@@ -23,7 +23,7 @@ export const Head: React.FC<{ title: string }> = ({ title }) => {
             <link rel="shortcut icon" href={fav} />
 
             <meta property="og:title" content={title} />
-            <meta property="og:url" content="https://blobity.dev/" />
+            <meta property="og:url" content="https://blobity.gmrchk.com/" />
             <meta property="og:image" content={og} />
             <meta
                 property="og:description"

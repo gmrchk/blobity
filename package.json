@@ -1,6 +1,6 @@
 {
   "name": "blobity",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Fun blob cursor for any website",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
