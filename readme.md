@@ -19,7 +19,7 @@
 - [Contributions](https://github.com/gmrchk/blobity#contributions)
 - [Special thanks](https://github.com/gmrchk/blobity#special-thanks)
 
-> :warning: Note that the product domain have changed from `blobity.dev` to `blobity.gmrchk.com`, including the resppective subsdomains. Turns out the auto renew wasn't turned on for the domain, and GoDaddy snatched it and wants $3000 for it. That's why we can't have nice things. :) 
+> :warning: Note that the product domain have changed from `blobity.dev` to `blobity.gmrchk.com`, including the respective subsdomains. Turns out the auto renew wasn't turned on for the domain, and GoDaddy snatched it and wants $3000 for it. That's why we can't have nice things. :) 
 
 ## Installation
 There are several options how to install Blobity to your site. 
